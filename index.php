@@ -3,14 +3,17 @@ require('conect.php');
 session_start();
 
 if(isset($_REQUEST['correo']) && !empty($_REQUEST['correo'])){
-    $u=$_POST['correo'];
+	$u=$_POST['correo'];
     $p=$_POST['pass'];
-    $esta=mysqli_num_rows(mysqli_query($link,"SELECT * FROM usuario WHERE  passw='$p' AND email='$u'"));
-	if($esta==1){
-    $_SESSION['user']=$u;
-header("Location:inicio.php");
+	$esta=mysqli_query($link,"SELECT * FROM usuario WHERE  passw='$p' AND email='$u'");
+	$nesta=mysqli_num_rows($esta);
+	$estaw=mysqli_fetch_assoc($esta);
+	if($nesta==1){
+//		echo "<script> alert('".$estaw['idusuario']."')</script>";
+		$_SESSION['user']=$estaw['idusuario'];
+		header("Location:inicio.php");
 }else{
-echo "<script> alert('Email o contraseña incorrecto')</script>";
+	echo "<script> alert('Email o contraseña incorrecto')</script>";
 }
 }
 
@@ -25,15 +28,14 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 if(isset($_REQUEST['nombreww']) && !empty($_REQUEST['nombreww'])){
-	$str= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-    $u="";
-    for($i=0;$i<11;$i++){
-        $u .=substr($str,rand(0,62),1);
-    }
+//	$str= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+//    $u="";
+//    for($i=0;$i<11;$i++){
+//        $u .=substr($str,rand(0,62),1);
+//    }
 	$p=$_REQUEST['password'];
 	$c=$_REQUEST['correoww'];
 	$n=$_REQUEST['nombreww'];
-    $f=$_FILES['picture']['name'];
     $t=$_REQUEST['tipo'];
 	
 	if (str_word_count($n) > 2 && str_word_count($n) < 6) {
@@ -42,87 +44,18 @@ if(isset($_REQUEST['nombreww']) && !empty($_REQUEST['nombreww'])){
 			if($ff>0){
 				echo "<script> alert('Email ya esta registrado')</script>";
 			}else{
-				mysqli_query($link,"INSERT INTO `usuario` (`usuario`, `passw`, `nombre`, `foto`, `tipo`, `email`, `confirmar`) VALUES ('$u','$p','$n','$f','$t','$c', 'enviado')");
-				copy($_FILES['picture']['tmp_name'],"archivos/".$u.$f);
-
-$mail = new PHPMailer(true);
-
-
-
-try {
-	//Server settings
-    $mail->SMTPDebug = 0;                      // Enable verbose debug output
-    $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'ricardomallqui6@gmail.com';                     // SMTP username
-    $mail->Password   = 'ricardomallqui666';                               // SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-	
-    //Recipients
-    $mail->setFrom('ricardomallqui6@gmail.com', 'FISMA');
-    $mail->addAddress($c, $n);     // Add a recipient
-    //$mail->addAddress('ellen@example.com');               // Name is optional
-    //$mail->addReplyTo('info@example.com', 'Information');
-    //$mail->addCC('cc@example.com');
-    //$mail->addBCC('bcc@example.com');
-	
-    // Attachments
-    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
-    // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = '<!DOCTYPE html>
-<html lang="en">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-</head>
-
-<body>
-
-   <div
-      style="text-align: center;background:rgb(10,10,100);color:RGB(255,255,255);border-radius:5px;font-family:serif;font-size:20px;">
-      GRACIAS POR VISITAR LA PAGINA, EMPICE A NUTRIR SUS CONOCIMENTOS
-   </div>
-
-
-   <img style="display:block;width:500px;margin:auto;"
-      src="https://github.com/ricardofisma/fisma/blob/master/archivos/estudianteposes-boudoir.jpg?raw=true" alt="">
-
-
-   <div
-      style="text-align: center;background:rgb(10,10,100);color:RGB(255,255,255);border-radius:5px;font-family:serif;font-size:20px;">
-      <a style="text-decoration:none;color:rgb(255,255,255);" href="ricardomallqui.cf">Regístrese</a>
-   </div>
-   <br>
-   <div
-      style="text-align: center;background:rgb(10,10,100);color:RGB(255,255,255);border-radius:5px;font-family:serif;font-size:20px;">
-      <a style="text-decoration:none;color:rgb(255,255,255);" href="http://localhost/email.php?confirmar='.$c.'">Confirmar:  http://localhost/email.php?confirmar='.$c.'</a>
-   </div>
-
-</body>
-
-</html>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-    $mail->send();
-    echo "<script> alert('Mensaje enviado')</script>";
-} catch (Exception $e) {
-	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
+				mysqli_query($link,"INSERT INTO usuario VALUES (NULL,'$p','$n',NULL,'$t','$c', 'enviado')");
+//				copy($_FILES['picture']['tmp_name'],"archivos/".$u.$f);
 
 
 
 
+	$registro=mysqli_query($link,"SELECT * FROM usuario WHERE email='$c'");
+	$nregistro=mysqli_num_rows($registro);
+	$registrow=mysqli_fetch_assoc($registro);
 
-				$_SESSION['user']=$c;
-				header("Location:inicio.php");
+$_SESSION['user']=$registrow['idusuario'];
+		header("Location:inicio.php");
 			}
 		} else {
 			echo("<script> alert('Formato de email incorrecto')</script>");
@@ -198,7 +131,7 @@ top:50%;
 left:50%;
  z-index: 999;
 text-align: center;
-background-color: rgb(100,0,220);
+background-color: rgb(250,220,180);
 transform:translate(-50%,-50%);
 } 
 
@@ -271,7 +204,7 @@ body {
 }
 
 #navbar a {
-  background: rgb(70,0,100);
+  background: rgb(250,100,100);
 float: right;
   display: block;
   color: white;
@@ -285,7 +218,7 @@ border-radius:8px 1px 8px 1px ;
 }
 
 #navbar a:hover {
-  background: rgba(0,0,0,0.5);
+  background: rgba(250,100,0,0.9);
  # color: black;
 }
 
@@ -333,10 +266,6 @@ var currentScrollPos = window.pageYOffset;
   	<input title="Apellidos y nombres, este campo como mínimo debe tener tres palabras" type="text" name="nombreww" placeholder="Introduce Apellidos y Nombres" autofocus="autofocus" required value="<?php if(isset($n))echo $n ?>">
 	<input type="text" name="correoww" placeholder="Introduce correo" required  value="<?php if(isset($c)) echo $c ?>">
 	<input type="password" name="password" placeholder="Introduce contraseña" required >
-	<input style="display:none" title="Cargar la foto de un repositorio local mas no de la nuve" class="ws" type="button" value="Cargar foto" value="<?php if(isset($f)) echo $f ?>" onclick="document.getElementById('selectedFile').click();" >
-
-	<input type="file" name="picture" id="selectedFile" style="display:none" value="<?php if(isset($f)) echo $f ?>">
-
         <select style="display:none" type="tipo" name="tipo">
             <option value="estudiante">Estudiante</option>
             <option value="docente">Docente</option>
@@ -375,7 +304,7 @@ position:absolute;
 top:50%;
 left:50%;
 text-align: center;
-background-color: rgb(100,0,220);
+background-color: rgb(250,220,180);
 transform:translate(-50%,-50%);
 } 
 
@@ -432,27 +361,11 @@ document.getElementById("fff").style.display="none"
 <script type='text/javascript'>
 		JXG.Options.text.useMathJax = true;
 		JXG.Options.text.fontSize = 14;
-		JXG.Options = JXG.merge(JXG.Options, { showNavigation: false, point: { face: 'o', size: 1, color: '#000000' } });
+		JXG.Options = JXG.merge(JXG.Options, { showNavigation: false, point: { face: 'o', showInfobox:false, size: 1, color: '#000000' } });
 </script>
 
 
 		
-
-
-
-
-
-
-	<style>
-	.plan {
-		padding: 10px;
-		margin:auto;
-        width: 90%;
-        border-radius: 5px;
-        margin-bottom: 50px;
-        background: whitesmoke;
-		#   font-size: 0.7em;
-    }</style>
 
 
 
@@ -467,25 +380,56 @@ document.getElementById("fff").style.display="none"
 <iframe style="border:none;border-radius:30px 1px 30px 1px;width:95%;height:360px;display:block;margin:auto;" src="3/examples/webgl_points_dynamic.html" seamless></iframe>
 <br><iframe style="border:none;border-radius:3px;width:90%;height:500px;display:block;margin:auto;" src="3/examples/physics_ammo_break.html" seamless></iframe>
 <br><iframe style="border:none;border-radius:3px;width:90%;height:500px;display:block;margin:auto;" src="3/examples/my.html" seamless></iframe>
+<br><iframe style="border:none;border-radius:3px;width:90%;height:500px;display:block;margin:auto;" src="untitled.html" seamless></iframe>
 -->
 
-	<h1 style="width:80%;text-align:center;color:white;background:black;margin:5px auto;border-radius:5px;">
 
-		Beneficios
-	</h1>
-<div style="width:90%;text-align:right;color:white;background:rgb(70,0,50);margin:5px auto;border-radius:5px;padding:5px;">
-	los beneficios son aprendder dinamicamentee donde el estudiante inteactua con objetos didacticosaemas de registrar sus aprendizaje de manera continua y sacar un promedio al final de cada seccion. 
-		Se provee de cursos divididos en niveles, las cuales a su vez se dividen en secciones con sus repectivas actividades dejadas para los estdiantes que seran calificadas. El estudiante podria pasar al siguente nivel si solo si obtuvo un promedio aprobatorio en nota vigesimal en el nivel anterior
+<script src="jquery-3.0.0.min.js"></script>
 
-<ul style="">
-<li>wewewewew</li>
-<li>wrerqwewqewew</li>
-<li>rqerqerqrqerw</li>
-</ul>
+<script>
+$(document).ready(function(){
+function get_data(){
+$.ajax({
+url:"indexajax.php",
+method:"POST", 
+success:function(data){
+  $("#resulta").html(data)
+}
+})
+}
+get_data();
+
+//ACTUALIZAR
+function actualizar_datos(id,texto,columna){
+$.ajax({
+url:"datos_index.php",
+method:"post",
+data:{id: id, texto: texto, columna: columna},
+success:function(data){
+get_data();
+alert(data);
+}
+})
+}
+//ACTUALIZAR CONTINUACION
+$(document).on("blur", "#ww1", function(){
+var id=$(this).data("c1");
+var x1=$(this).text();
+alert(x1);
+actualizar_datos(id, x1,"texto")
+})
 
 
 
-</div>
+
+
+});
+</script>
+
+
+<div id ="resulta"></div>
+
+
 
 
 <style>
@@ -500,10 +444,10 @@ document.getElementById("fff").style.display="none"
 .contenedor .imagen{
 text-align: center;
 width:360px;
-border-radius:10px;
+border-radius:3px;
 position:relative;
 margin:10px;
-background-color: rgb(70, 10, 70);
+background-color: rgb(30, 5, 50);
 box-shadow:0px 0px 0px 0px rgba(0,0,0,.75);
 }
 
@@ -523,7 +467,7 @@ background-color: #ffffff;
 <div class='imagen'>
 	<div id="ww" class="jxgbox" ></div>
 		<h1 style="text-align:center;color:white;background:black;margin-bottom:5px;">wewew</h1>
-	<div style="text-align:center;color:white;background:rgb(100,0,100);border-radius:0px 0px 5px 5px;">
+	<div style="text-align:center;color:white;background:rgb(20,0,30);border-radius:0px 0px 5px 5px;">
 		Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nobis unde, quibusdam ad voluptatem fuga culpa suscipit fugiat aut ipsam quidem, deleniti doloremque itaque, blanditiis eaque aliquam quod excepturi sunt.
 	</div>
 </div>
@@ -533,7 +477,7 @@ background-color: #ffffff;
 		JXG.Options.axis.ticks.ticksDistance = 100;
 		var board = JXG.JSXGraph.initBoard('ww', {keepAspectRatio: true,boundingbox:[-1,8,10,-2], axis:true,showFullscreen: true,zoom: { factorX: 1.25, factorY: 1.25, wheel: true, needshift: true, eps: 0.1 },
 			showNavigation: true,
-			showCopyright: false,showInfobox:false,
+			showCopyright: false, 
 			zoom:{wheel: true, enabled: false }, pan:{ needTwoFingers: false,enabled:false},
 			defaultAxes: { y: { ticks: { visible: true, majorHeight: 5 } }, x: { ticks: { visible: true, majorHeight: 5 } } },
 		});
@@ -544,7 +488,7 @@ background-color: #ffffff;
 		var l1w = board.create('line', [ww1, ww2], { strokeColor: 'green', strokewidth: 1 });
 		var mpw = board.create('midpoint', [ww1, ww2], { name: "\\(O\\)", label: { autoPosition: true, offset: [10, -10] } });
 
-		var vecw = board.create('arrow', [[0, 0], mpw], { straightFirst: true, straightLast: true, strokeWidth: 1, dash: 2 });
+		var vecw = board.create('arrow', [[0, 0], mpw], { strokeColor:'black', lastArrow: {type: 2, size: 9}, strokeWidth: 1, dash: 2 });
 		var perp1ww = board.create('perpendicular', [l1w, mpw], { highlight: false, strokeColor: 'red', strokewidth: 0 });
 
 
@@ -567,7 +511,7 @@ background-color: #ffffff;
 
 		ewgw = board.create("glider", [2, 2, eww], { name: "\\(P\\)",color:'rgb(200,10,10)', label: { position: "rt", offset: [-20, 20] } });
 
-		c3ww = board.create('circle', [mpw, function () { return mpw.Dist(c1ww) * mpw.Dist(c1ww) / mpw.Dist(ww1)}], { highlight: false, strokeColor: 'red', strokewidth: 1 });
+		c3ww = board.create('circle', [mpw, function () { return mpw.Dist(c1ww) * mpw.Dist(c1ww) / mpw.Dist(ww1)}], { highlight: false, strokeColor: 'red', strokewidth: 0 });
 
 		var d1w = board.create('intersection', [c3ww, l1w, 0], { name: "" });
 		var d2w = board.create('intersection', [c3ww, l1w, 1], { name: "" });
@@ -603,71 +547,71 @@ background-color: #ffffff;
 			defaultAxes: { y: { ticks: { visible: true, majorHeight: 5 } }, x: { ticks: { visible: true, majorHeight: 5 } } },
 		});
 
+		var gg = board.create("point", [2, -1], { name: "\\(F_1\\)", fillColor: '#306754', label: { autoPosition: true, offset: [0, -20] } });
+		var g2 = board.create("point", [8, 3], { name: "\\(F_2\\)", label: { autoPosition: true, offset: [-5, 20] } });
+
+		var line1 = board.create('line', [gg, g2], { strokeColor: 'green', strokewidth: 1 });
+		var mid1 = board.create('midpoint', [gg, g2], { name: "\\(O\\)", label: { autoPosition: true, offset: [0, -15] } });
+		var vec = board.create('arrow', [[0, 0], mid1], {strokeColor:'black', lastArrow: {type: 2, size: 9}, strokeWidth: 1, dash: 2 });
+		var perpend1 = board.create('perpendicular', [line1, mid1], { highlight: false, strokeColor: 'red', strokewidth: 0 });
 
 
-		var f1 = board.create("point", [2, -1], { name: "\\(F_1\\)", fillColor: '#306754', label: { autoPosition: true, offset: [0, -20] } });
-		var f2 = board.create("point", [8, 3], { name: "\\(F_2\\)", label: { autoPosition: true, offset: [-5, 20] } });
+		var hiper = board.create("hyperbola", [gg, g2, 5.5], { strokeColor: '#000000', strokewidth: 2 });
 
-		var l1 = board.create('line', [f1, f2], { strokeColor: 'green', strokewidth: 1 });
-		var mp1 = board.create('midpoint', [f1, f2], { name: "\\(O\\)", label: { autoPosition: true, offset: [0, -15] } });
-		var vec = board.create('arrow', [[0, 0], mp1], { straightFirst: true, straightLast: true, strokeWidth: 1, dash: 2 });
-		var perp1 = board.create('perpendicular', [l1, mp1], { highlight: false, strokeColor: 'red', strokewidth: 0 });
+		var tang = board.create("glider", [10.21, 1, hiper], { name: "\\(P\\)", label: { offset: [10, 10] } });
+		board.create("tangent", [tang], { strokeColor: '#222200', strokewidth: 1 });
 
-
-		ew = board.create("hyperbola", [f1, f2, 5.5], { strokeColor: '#000000', strokewidth: 2 });
-
-		ewg = board.create("glider", [10.21, 1, ew], { name: "\\(P\\)", label: { offset: [10, 10] } });
-		var w = board.create("tangent", [ewg], { strokeColor: '#222200', strokewidth: 1 });
+		var pol2 = board.create('polygon', [gg, tang, g2], { hasInnerPoints: true });
 
 
-
-		var cc1 = board.create('circle', [mp1, f1], { strokeColor: 'red', strokewidth: 1, dash: 1 });
+		var circ1 = board.create('circle', [mid1, gg], { strokeColor: 'red', strokewidth: 1, dash: 1 });
 		//
-		var b1r = board.create('intersection', [ew, perp1, 0], { name: "\\(B_1\\)", label: { offset: [-15, -20] } });
-		var b2r = board.create('intersection', [ew, perp1, 1], { name: "\\(B_2\\)", label: { offset: [5, -20] } });
+		var inte1 = board.create('intersection', [hiper, line1, 0], { name: "\\(V_1\\)", label: { offset: [15, -10] } });
+		var inte2 = board.create('intersection', [hiper, line1, 1], { name: "\\(V_2\\)", label: { offset: [-30, 5] } });
+
+		var perpen1 = board.create('perpendicular', [line1, inte1], { highlight: false, strokeColor: 'red', strokewidth: 0 });
+		var perpen2 = board.create('perpendicular', [line1, inte2], { highlight: false, strokeColor: 'red', strokewidth: 0 });
+
+		var r1 = board.create('intersection', [circ1, perpen1, 0], { name: "", label: { offset: [-15, -20] } });
+		var r2 = board.create('intersection', [circ1, perpen1, 1], { name: "", label: { offset: [5, -20] } });
+
+		var s1 = board.create('intersection', [circ1, perpen2, 0], { name: "", label: { offset: [-15, -20] } });
+		var s2 = board.create('intersection', [circ1, perpen2, 1], { name: "", label: { offset: [5, -20] } });
 		//
-		var c1r = board.create('intersection', [ew, l1, 0], { name: "\\(V_1\\)", label: { offset: [15, -10] } });
-		var c2r = board.create('intersection', [ew, l1, 1], { name: "\\(V_2\\)", label: { offset: [-30, 5] } });
-
-		var perp2 = board.create('perpendicular', [l1, c1r], { highlight: false, strokeColor: 'red', strokewidth: 0 });
-		var perp3 = board.create('perpendicular', [l1, c2r], { highlight: false, strokeColor: 'red', strokewidth: 0 });
-
-		var r1 = board.create('intersection', [cc1, perp2, 0], { name: "", label: { offset: [-15, -20] } });
-		var r2 = board.create('intersection', [cc1, perp2, 1], { name: "", label: { offset: [5, -20] } });
-
-		var s1 = board.create('intersection', [cc1, perp3, 0], { name: "", label: { offset: [-15, -20] } });
-		var s2 = board.create('intersection', [cc1, perp3, 1], { name: "", label: { offset: [5, -20] } });
+		var int1 = board.create('intersection', [ board.create('line', [r1, s1], {strokewidth: 0 }), perpend1, 0], { name: "\\(B_1\\)", label: { offset: [-15, -20] } });
+		var int2 = board.create('intersection', [board.create('line', [r2, s2], {strokewidth: 0 }), perpend1, 1], { name: "\\(B_2\\)", label: { offset: [5, 30] } });
 
 		var asintota1 = board.create('line', [s2, r1], { strokeColor: 'green', strokewidth: 1, dash: 1 });
 		var asintota1 = board.create('line', [s1, r2], { strokeColor: 'green', strokewidth: 1, dash: 1 });
 
+	var segment1 = board.create('segment', [s2, r2], { strokeColor: 'green', strokewidth: 1, dash: 1 });
+		var segment2 = board.create('segment', [s1, r1], { strokeColor: 'green', strokewidth: 1, dash: 1 });
+
 
 		var segmento1 = board.create('segment', [s1, s2], { strokeColor: 'green', strokewidth: 1 });
 		var segmento2 = board.create('segment', [r1, r2], { strokeColor: 'green', strokewidth: 1 });
+var segmento1 = board.create('segment', [int1, int2], { strokeColor: 'green', strokewidth: 1, dash: 1});
+
+		var recto1 = board.create('perpendicular', [line1, gg], { highlight: false, strokeColor: 'red', strokewidth: 0 });
+		var recto2 = board.create('perpendicular', [line1, g2], { highlight: false, strokeColor: 'red', strokewidth: 0 });
+
+		var recto_s = board.create('segment', [board.create('intersection', [hiper, recto1, 0], { name: "" }), board.create('intersection', [hiper, recto1, 1], { name: "" })], { strokeColor: 'green', strokewidth: 1 });
+		var recto_w = board.create('segment', [board.create('intersection', [hiper, recto2, 0], { name: "" }), board.create('intersection', [hiper, recto2, 1], { name: "" })], { strokeColor: 'green', strokewidth: 1 });
+
+		c3 = board.create('circle', [mid1, function () { return mid1.Dist(inte1) * mid1.Dist(inte1) / mid1.Dist(gg)}], { highlight: false, strokeColor: 'red', strokewidth: 0 });
 
 
-		var recto1 = board.create('perpendicular', [l1, f1], { highlight: false, strokeColor: 'red', strokewidth: 0 });
-		var recto2 = board.create('perpendicular', [l1, f2], { highlight: false, strokeColor: 'red', strokewidth: 0 });
-
-		var recto_s = board.create('segment', [board.create('intersection', [ew, recto1, 0], { name: "" }), board.create('intersection', [ew, recto1, 1], { name: "" })], { strokeColor: 'green', strokewidth: 1 });
-		var recto_s2 = board.create('segment', [board.create('intersection', [ew, recto2, 0], { name: "" }), board.create('intersection', [ew, recto2, 1], { name: "" })], { strokeColor: 'green', strokewidth: 1 });
-
-		var s1 = board.create('segment', [b1r, b2r], { strokeColor: 'green', strokewidth: 1 });
-		var s1 = board.create('segment', [b1r, f2], { straightFirst: true, straightLast: true, strokeWidth: 1, dash: 1 });
+		//var s1 = board.create('segment', [inte1, inte2], { strokeColor: 'green', strokewidth: 1 });
+		//var s1 = board.create('segment', [inte1, g2], { straightFirst: true, straightLast: true, strokeWidth: 1, dash: 1 });
 
 
+		var d1 = board.create('intersection', [c3, line1, 0], { name: "" });
+		var d2 = board.create('intersection', [c3, line1, 1], { name: "" });
 
+		board.create('perpendicular', [line1, d1], { strokeColor: '#256552', strokewidth: 1, name: '\\(\\mathcal{L}_1\\)', withLabel: true, label: { offset: [-30, 5], position: "lft" } });
+		board.create('perpendicular', [line1, d2], { strokeColor: '#256552', strokewidth: 1, name: '\\(\\mathcal{L}_2\\)', withLabel: true, label: { offset: [10, 10], position: "lft" } });
 
-		var c3 = board.create('circle', [mp1, function () { return mp1.Dist(c1r) * mp1.Dist(c1r) / mp1.Dist(f1); }], { highlight: false, strokeColor: 'red', strokewidth: 0 });
-
-		var d1 = board.create('intersection', [c3, l1, 0], { name: "" });
-		var d2 = board.create('intersection', [c3, l1, 1], { name: "" });
-
-		board.create('perpendicular', [l1, d1], { strokeColor: '#256552', strokewidth: 1, name: '\\(\\mathcal{L}\\)', withLabel: true, label: { offset: [-30, 5], position: "lft" } });
-		board.create('perpendicular', [l1, d2], { strokeColor: '#256552', strokewidth: 1, name: '\\(\\mathcal{L}\\)', withLabel: true, label: { offset: [10, 10], position: "lft" } });
-
-		var pol2 = board.create('polygon', [f1, ewg, f2], { hasInnerPoints: true });
-		var t = board.create('text', [11, 0.2, function () { return pol2.Perimeter().toFixed(3); }]);
+	var t = board.create('text', [11, 0.2, function () { return pol2.Perimeter().toFixed(3); }]);
 	</script>
 
 
@@ -733,7 +677,7 @@ background-color: #ffffff;
 
 
 		var b1 = board.create('intersection', [ew, l2, 0], { name: "\\(V\\)", label: { offset: [-15, -20] } });
-		var vec = board.create('arrow', [[0, 0], b1], { straightFirst: true, straightLast: true, strokeWidth: 1, dash: 2 });
+		var vec = board.create('arrow', [[0, 0], b1], {strokeColor:'black', lastArrow: {type: 2, size: 5}, dash: 2 });
 
 		var b2 = board.create('intersection', [w, l2, 0], { name: "\\(S\\)", label: { offset: [-15, -20] } });
 
