@@ -20,7 +20,7 @@ mysqli_query($link, "UPDATE  usuario SET confirmar='confirmado' WHERE email='".$
 
 if(isset($_REQUEST['email'])){
 $to=$_REQUEST['email'];
-mysqli_query($link, "UPDATE  usuario SET email='".$_REQUEST['email']."', confirmar='enviado' WHERE usuario='".$_SESSION['user']."'");
+mysqli_query($link, "UPDATE  usuario SET email='".$_REQUEST['email']."', confirmar='enviado' WHERE idusuario='".$_SESSION['user']."'");
 $titulo='Confirmar correo electrónico';
 $header='scrion@gmail.com';
 $mensaje='Confirme su correo haciendo click sobre el enlace siguiente\n

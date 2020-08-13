@@ -20,5 +20,5 @@ function CambiarClase(targ,selObj,restore){
         do{
 echo "<option value='inicio.php?clave=".$ams['clave']."'>".$ams['nombre']."</option>";
         }while($ams=mysqli_fetch_assoc($menusalto));
-echo "</select></form>";
+echo "</select></form>"; 
 ?>

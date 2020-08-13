@@ -12,9 +12,9 @@ if(isset($_REQUEST['cerrar'])){
 
 
 
-$docent=mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM clase, usuario WHERE clase.usuario=usuario.usuario  AND clase.clave ='".$_SESSION['clave']."'"));  
+$docent=mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM clase, usuario WHERE clase.usuario=usuario.idusuario  AND clase.clave ='".$_SESSION['clave']."'"));  
 
-$estudian=mysqli_query($link,"SELECT * FROM misclases, usuario WHERE misclases.usuario=usuario.email  AND misclases.clave ='".$_SESSION['clave']."'");   
+$estudian=mysqli_query($link,"SELECT * FROM misclases, usuario WHERE misclases.usuario=usuario.idusuario  AND misclases.clave ='".$_SESSION['clave']."'");   
 $estudiant=mysqli_fetch_assoc($estudian);
 $nm=mysqli_num_rows($estudian);
 ?>
@@ -59,7 +59,7 @@ box-shadow:0px 0px 0px 0px rgba(0,0,0,.75);
 <article>
     <h1>Integrantes del curso de <?php echo $wew['nombre']?></h1> 
     
-    <div class= "contenedor-imagenesw">
+<div class= "contenedor-imagenesw">
         <?php
 echo "<div class='imagen'>";
 echo "<h1 style='border-radius:5px 5px 0px 0px;background:rgb(255,90,110);font-size:15px'>" .$docent['tipo']. "</h1>";

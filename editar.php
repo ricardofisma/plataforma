@@ -11,7 +11,7 @@ if(isset($_REQUEST['cerrar'])){
    header("Location:index.php");
 }
 
-$user=mysqli_query($link,"SELECT * FROM usuario WHERE email='".$_SESSION['user']."'")     ;
+$user=mysqli_query($link,"SELECT * FROM usuario WHERE idusuario='".$_SESSION['user']."'")     ;
 $g=mysqli_fetch_assoc($user);
 echo $_SESSION['user'];
 
@@ -27,10 +27,10 @@ if($img==""){
     }else{
         unlink('archivos/'.$g['usuario'].$g['foto']);
         $f=$img;
-        move_uploaded_file($_FILES['foto']['tmp_name'], "archivos/".$g['usuario'].$f);
+        move_uploaded_file($_FILES['foto']['tmp_name'], "archivos/".$g['idusuario'].$f);
     }
 
-        mysqli_query($link,"UPDATE usuario SET passw= '$p', nombre = '$n', foto = '$f', email='$c' WHERE email='".$_SESSION['user']."'");
+        mysqli_query($link,"UPDATE usuario SET passw= '$p', nombre = '$n', foto = '$f', email='$c' WHERE idusuario='".$_SESSION['user']."'");
         header("Location:inicio.php");
     }
 

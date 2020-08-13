@@ -11,7 +11,8 @@ $charge = $culqi->Charges->create(
  array(
      "amount" => $_POST['precio'],
      "capture" => true,
-     "description" => $_POST['producto'],
+     "des
+     iption" => $_POST['producto'],
      "currency_code" => "PEN",
      "email" => $_POST['email'],
      "source_id" => $_POST['token']

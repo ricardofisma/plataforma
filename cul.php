@@ -18,8 +18,11 @@ session_destroy();
 if(isset($_REQUEST['user'])){
     $user=$_POST['user'];
     $clave=$_POST['clave'];
+    $categoria=$_POST['categoria'];
+    $curso=$_POST['curso'];
+    $id=$_POST['id'];
 
-mysqli_query($link,"INSERT INTO misclases VALUES(NULL,'$user','$clave')");
+mysqli_query($link,"INSERT INTO misclases VALUES(NULL,'$user','$clave','$categoria','$curso','$id')");
 }
 
 

@@ -5,16 +5,16 @@ session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location:index.php");
-        }
+}
 
 if(isset($_REQUEST['cerrar'])){
    session_destroy();
    header("Location:index.php");
 }
-
+//echo $_SESSION['user'];
 ?>
 
-  <script src="https://checkout.culqi.com/js/v3"></script>
+<script src="https://checkout.culqi.com/js/v3"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!--
@@ -59,6 +59,28 @@ box-shadow:0px 0px 1px 0px rgba(0,0,0,.75);
 width:100%;
 height:100%;
 }
+.imagen{
+   display: inline-block;
+#  background:rgb(100,110,200);
+}
+
+.imagen .ww .www{
+position:absolute; 
+float:left;
+top: 0%; 
+left: 0%; 
+display:none;
+}
+
+.imagen:hover .ww .www{
+display:inline;
+}
+
+
+.imagen:hover img{
+image: url("curso.png");
+
+}
 
 
 .overlayw{
@@ -89,40 +111,6 @@ cursor:pointer;
 
 <?php include('first.php'); ?>
 
-<article style="background:rgb(70,0,70);">
-
-<?php
-
-if(isset($_REQUEST['clave'])){
-    $_SESSION['clave']=$_REQUEST['clave'];
-    $clase=mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM clase WHERE clave='".$_SESSION['clave']."'"));
-}
-
-//if($w['tipo']=='estudiante'){
-//    echo "<h1>Hola ".$w['nombre']." bienvenido a E learning</h1>";   
-//}
-
-?>
-
-
-
-<div  style= "display:flex; width:100%;">
-<?php
-echo "<div class='imagen' style='float:left;'>";
-echo "<div style='text-align: center;width:370px;border:0px solid;;border-radius:5px;position:relative;margin:5px;'>";
-echo "<div title='Edite su perfil' class='wrapper' style='margin:5px auto;'><a style='cursor: pointer;' href='editar.php'><img style='cursor: pointer;' src= 'archivos/".$w['usuario']."".$w['foto']."' onerror=this.src='foto.png'></a></div>";
-echo "<div style='margin:auto;width:97%; margin-bottom:0px;'><h1 style='border-radius:5px 5px 0px 0px;background:rgba(255,255,255,0.95);'>" .$w['nombre']. "</h1></div>";
-echo "</div>";
-echo "</div>";
-?>
-</div>
-
-
-
-
-
-</article>
-
 
 
 
@@ -138,7 +126,7 @@ if(isset($_REQUEST['jj'])){
     for($i=0;$i<11;$i++){
       $cad .=substr($str,rand(0,62),1);
     }
-    $u=$w['usuario'];
+    $u=$w['idusuario'];
     $price=$_REQUEST['price'];
     $cont=$_REQUEST['descripcion'];
     $cont = mysqli_real_escape_string($link, $cont); 
@@ -152,308 +140,316 @@ if(isset($_REQUEST['e'])){
 mysqli_query($link, "DELETE FROM clase WHERE clase.idclase=".$_REQUEST['e']);
 }
 
-$con=mysqli_query($link,"SELECT * FROM clase WHERE usuario='".$w['usuario']."'");
-$n=mysqli_num_rows($con);
-$a=mysqli_fetch_assoc($con);
-?>
-<article>
-
-  <?php
-if($w['tipo']=='docente'){
-  ?>
-<h1>Gestión de cursos</h1>
-<form action="inicio.php" method="post" enctype="multipart/form-data">
-  <input style='border:1px solid;padding:5px;border-radius:3px;margin:5px;' type="text" name="clase" placeholder="Nombre de la clase" required>
-  <input style='border:1px solid;padding:5px;border-radius:3px;width:200px;margin:5px' type="text" name="price" placeholder="Precio del curso ej. 250" required>
-  <input style='border:1px solid;padding:5px;border-radius:3px;width:300px;margin:5px' type="file" name="gg" required>
-  <input style='border:1px solid;padding:5px;border-radius:3px;width:350px;margin:5px' type="text" name="link" placeholder="Link de video referencial - Youtuve" required>
-  <textarea name="descripcion" id="" cols="30" rows="5" placeholder="Introduce la descripción del curso" required></textarea><br>
-  <input style='border:1px solid;padding:5px;border-radius:3px;width:300px;margin:5px' type="submit" value="Crear" name="jj">
-</form>
-
-</article>
-
-
-<article>
-
-<div style= "    display:flex;    width:100%;    flex-wrap:wrap;    align-items: center;    justify-content: center;">
-  <?php
-$_SESSION['clave']=$a['clave'];
-
-if($n>0){
-  do{
-    echo "<div class='imagen' style='float:left;'>";
-    echo "<a style='cursor: pointer;text-decoration: none;color:rgb(30,10,30);' href='capitulo.php?clave=".$a['clave']."'>";
-echo "<div style='text-align: center;background:rgb(100,8,100);width:200px;border-radius:10px;position:relative;margin:5px;box-shadow:0px 0px 5px 0px rgba(0,0,0,.75);'>";
-echo "<div style='margin:auto;width:80%; margin-bottom:5px;background:rgb(10,100,100);border-radius:0px 0px 5px 5px;'><p style='border-radius:0px 0px 5px 5px;'>" .$a['nombre']. "</p></div>";
-echo "<div style='margin:auto;width:80%; margin-bottom:5px;'><p>" .$a['clave']. "</p></div>";
-echo "<div style='margin:auto;width:80%'><p>" .$a['fecha']. "</p></div>";
-echo "<div style='margin:auto;width:80%'><p>Ver clase</p></div>";
-echo "<div class='wrapper' style='margin:5px auto;'><a style='cursor: pointer;' href='capitulo.php?clave=".$a['clave']."'><img src= 'archivoscrearclase/".$a['usuario']."".$a['foto']."' onerror=this.src='curso.png'></a></div>";
-        echo "<a href='updatecursos.php?update=".$a['idclase']."' style='margin:auto;width:80%; text-decoration:none;color:rgb(275,105,75);'> Editar </a>";
-echo "<div  style='margin:auto;width:80%; margin-bottom:0px;'><p style='border-radius:5px 5px 0px 0px;background:rgb(200,100,100);'><a style='text-decoration: none;' href=\"javascript:preguntarw('".$a['idclase']."')\">Eliminar</a></p></div>";
-echo "</div>";echo "</div>";
-echo "</a>";
-}while($a=mysqli_fetch_assoc($con));
-}else{
-  echo "<tr><td> No hay clases creadas</td></tr>";
-}
-?>
-</div>
-
-<script>
-function preguntarw(valor){
-eliminar=confirm("Esta seguro de eliminar esta clase?")
-if(eliminar)
-window.location.href="inicio.php?e="+valor;
-}
-</script>
-
-</article>
-
-<?php
-}
-?>
-
-<style>
-.crearclase{
-margin: 5px auto;
-display:block;
-border: 1px solid ;
-border-radius:3px;
-background:#2333ee22;
-padding:5px;
-
-}
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--las clases creadas del profe que se muestran a todos-->
-
-
-
-
- <?php
-if($w['tipo']=='estudiante'){
-  ?>
-
-
-<article  style="background:rgb(255,255,150);">
-
-<h1>Cursos disponibles</h1>
-
-<?php
-
-
-
-if(isset($_REQUEST['clave'])){
-        $n=mysqli_num_rows(mysqli_query($link,"SELECT * FROM clase WHERE clave='".$_REQUEST['clave']."'"));
-        if($n>0){       
-        $nc=mysqli_num_rows(mysqli_query($link,"SELECT * FROM misclases WHERE clave='".$_REQUEST['clave']."' AND usuario='".$_SESSION['user']."'"));    
-        if($nc==0){
-            
-            $u = $_SESSION['user'];
-            $c = $_REQUEST['clave'];
-            mysqli_query($link,"INSERT INTO misclases VALUES(NULL,'$u','$c')");
-            
-        }else{
-            
-        echo "<script> alert('Ya te uniste a esa clase')</script>";
-        }
-        }else{
-        echo "<script> alert('La clase no existe')</script>";
-        }
-    }
-
-
-$con=mysqli_query($link,"SELECT b.* FROM clase b LEFT JOIN (SELECT clase.nombre, misclases.idmiclase, clase.clave, clase.foto, clase.link , clase.descripcion , clase.usuario FROM clase, misclases WHERE clase.clave=misclases.clave AND misclases.usuario='".$w['email']."'
-) a ON a.clave = b.clave WHERE a.clave IS NULL");
+$con=mysqli_query($link,"SELECT * FROM clase WHERE usuario='".$w['idusuario']."'");
 $n=mysqli_num_rows($con);
 $a=mysqli_fetch_assoc($con);
 ?>
 
-<style>
-.contenedorww{
-    display:flex;
-    width:100%;
-    flex-wrap:wrap;
-    align-items: center;
-    justify-content: center;
-}
-.contenedorww .imagen{
-    text-align: center;
-    background:rgb(100,10,100);
-width:200px;
-border-radius:10px;
-position:relative;
-margin:5px;
-box-shadow:0px 0px 5px 0px rgba(0,0,0,.75);
-}
-.wrapperww {
-  width:200px;
-  height:200px;
-  overflow: hidden;
-  border-radius:1px;
-  position: relative;
-  object-fit:cover;
-}
-.wrapperww img {
-  height:200px;
-  position: absolute;
-  top:50%;
-  left:50%;
-  object-fit:cover;
-  transform: translate(-50%,-50%)
-}
-</style>
 
- 
-<div class= "contenedorww">
-<?php
-if($n>0){
-    do{
-        echo "<div class='imagen'>";
-        echo "<div class='wrapperww' style='margin:auto;'><img src= 'archivoscrearclase/".$a['usuario']."".$a['foto']."' onerror=this.src='curso.png'></div>";
-        echo "<div style='margin:5px;background:rgb(200,100,250);padding:5px;color:black;border-radius:5px;''><h1>".$a['nombre']."</h1></div>";
-        echo "<div style='margin:auto;width:80%; margin-bottom:5px;color:white;'>S/ ".$a['precio']."</div>";
-//        echo "<div style='margin:auto;width:80%; margin-bottom:5px;'>".$a['clave']."</div>";
- 
-//echo $a['clave'];
-?>
+
+
+<script src="js_c/jquery-1.10.2.min.js"></script>  
+<link rel="stylesheet" href="css_c/bootstrap.min.css" />  
+<script src="js_c/bootstrap.min.js"></script>  
+
+
+
+
+<div id="imageModal" class="modal fade" role="dialog">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Add Image</h4>
+    
+   </div>
+
+   <div class="modal-body">
+
+    <form id="image_form" method="post" enctype="multipart/form-data">
+
+     <p><label>Select Image</label>
+     <input type="file" name="image" id="image" /></p><br />
+     <input type="" name="action" id="action" value="insert" />
+     <input type="" name="image_id" id="image_id" /> <!--hidden-->
+     <input type="" name="wimage_id" id="wimage_id" /> <!--hidden-->
+     <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
+      
+    </form>
+
+   </div>
+   <div class="modal-footer">
+
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
 <script>
-function <?php echo $a['clave']?>(){
-	document.getElementById("<?php echo $a['clave']?>").style.display="block";
-}
 
-function <?php echo $a['clave']."2"?>(){
-document.getElementById("<?php echo $a['clave']?>").style.display="none"
+
+$(document).ready(function(){
+function obtener_inicio(){
+$.ajax({
+url:"inicioajax.php",
+method:"POST", 
+success:function(data){
+$("#resultadoinicio").html(data)
+}})}
+
+
+obtener_inicio();
+
+//INSERTAR curso
+$(document).on("click", "#curso", function(){
+var claves="<?php echo $_SESSION['user']?>";
+var clavvcategoria = $(this).data("c1");
+//
+//alert(clavvcategoria);
+//alert(claves);
+$.ajax({
+url:"datos_inicio.php",
+method:"post",
+data:{clavecurso:claves,clavvcategoria:clavvcategoria},
+success:function(data){ 
+obtener_inicio();
+//   alert(data);
+}})})
+    
+
+//INSERTAR categoria
+$(document).on("click", "#categoria", function(){
+var claves="<?php echo $_SESSION['user']?>";
+//alert(claves);
+$.ajax({
+url:"datos_inicio.php",
+method:"post",
+data:{clavewc:claves},
+success:function(data){ 
+obtener_inicio();
+//   alert(data);
+}})})
+ 
+//ACTUALIZAR categoria
+function actualizar_datoc(id,texto,columna){
+$.ajax({
+url:"datos_inicio.php",
+method:"post", 
+data:{widd: id, wtextt: texto, wcolumnn: columna},
+success:function(data){
+obtener_inicio();
+//   alert(data);
+}})}
+//ACTUALIZAR nombre
+$(document).on("blur", "#nombre", function(){
+var id = $(this).data("c1");
+var x1 = $(this).text();
+// alert(x1);
+// alert(id);
+actualizar_datoc(id, x1,"nombre")
+})
+//ACTUALIZAR descripcion
+$(document).on("blur", "#desc", function(){
+var id = $(this).data("c1");
+var x1 = $(this).text();
+// alert(x1);
+// alert(id);
+actualizar_datoc(id, x1,"descripcion")
+})
+//ACTUALIZAR color
+$(document).on("change", "#color", function(){
+var id = $(this).data("c1");
+var x1 = $(this).val();
+// alert(x1);
+// alert(id); 
+actualizar_datoc(id, x1,"color")
+})
+
+ 
+
+
+//ACTUALIZAR curso
+function actualizar_dato(id,texto,columna){
+$.ajax({
+url:"datos_inicio.php",
+method:"post", 
+data:{id: id, text: texto, column: columna},
+success:function(data){
+obtener_inicio();
+   alert(data);
+}})}
+//ACTUALIZAR nombre
+$(document).on("blur", "#www", function(){
+var id = $(this).data("c1");
+var x1 = $(this).text();
+// alert(x1);
+// alert(id);
+actualizar_dato(id, x1,"nombre")
+})
+
+//ACTUALIZAR precio
+$(document).on("blur", "#cc2", function(){
+var id = $(this).data("c2");
+var x1 = $(this).text();
+ alert(x1);
+ alert(id);
+actualizar_dato(id, x1,"precio")
+})
+//ACTUALIZAR precio
+$(document).on("blur", "#cc3", function(){
+var id = $(this).data("c3");
+var x1 = $(this).text();
+// alert(x1);
+// alert(id);
+actualizar_dato(id, x1,"descripcion")
+})
+$(document).on("blur", "#ccc", function(){
+var id=$(this).data("cc");
+var x=$(this).text();
+var x1 = x.replace('https://www.youtube.com/watch?v=', 'http://www.youtube.com/embed/');
+//alert(x1);
+//alert(id);
+actualizar_dato(id, x1,"link")
+})
+
+//////////////////////////////////////////
+
+obtener_inicio();
+
+
+
+
+ $('#image_form').submit(function(event){
+  event.preventDefault();
+  var image_name = $('#image').val();
+  if(image_name == '')
+  {
+   alert("Please Select Image");
+   return false;
+
+  }else{
+   var extension = $('#image').val().split('.').pop().toLowerCase();
+   if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1){
+    alert("Invalid Image File");
+    $('#image').val('');
+    return false;
+   }else{
+
+    $.ajax({
+     url:"datos_inicio.php",
+     method:"POST",
+     data:new FormData(this),
+     contentType:false,
+     processData:false,
+     success:function(data)
+     {
+      alert(data);
+obtener_inicio();
+      $('#image_form')[0].reset();
+      $('#imageModal').modal('hide'); 
+     }
+
+    });
+   }
+  }
+
+ });
+
+ $(document).on('click', '.update', function(){
+  $('#image_id').val($(this).attr("id"));
+  $('#wimage_id').val($(this).data("id"));
+    $('#action').val("update");
+  $('.modal-title').text("Actualizar imágen");
+  $('#insert').val("Actualizar");  
+  $('#imageModal').modal("show");
+ });
+
+ $(document).on('click', '.image', function(){
+  $('#image_id').val($(this).attr("id"));
+    $('#action').val("image");
+  $('.modal-title').text("Actualizar imágen");
+  $('#insert').val("Actualizar");  
+  $('#imageModal').modal("show");
+ });
+
+
+//ELIMINAR categoria
+$(document).on("click", "#delete", function(){
+if(confirm("Esta seguro de eliminar esta categoria")){
+var idw=$(this).data("c1");
+//   alert(idw);
+//  alert(idw);
+$.ajax({ 
+url:"datos_inicio.php",
+method:"post",
+data:{delet:idw},
+success:function(data){
+obtener_inicio(); 
 }
+})
+};
+})
+ 
+//ELIMINAR CURSO
+$(document).on("click", "#deletecurso", function(){
+if(confirm("Esta seguro de eliminar esta categoria")){
+var idw=$(this).data("c1");
+var idc=$(this).data("cc1");
+   alert(idw);
+//   alert(idw);
+$.ajax({ 
+url:"datos_inicio.php",
+method:"post",
+data:{deletw:idw, idc:idc},
+success:function(data){
+obtener_inicio();
+alert(data);
+}
+})
+};
+})
+
+
+
+});  
 </script>
-<a style="color:rgb(50,50,50);width:97%;text-decoration: none;" href="javascript:<?php echo $a['clave']?>()">
-<div style="margin:5px;background:rgb(50,10,20);padding:5px;color:white;border-radius:5px;">
-Detalles del curso
-</div></a>
+
+
+<div id ="resultadoinicio"></div>
 
 
 
-<div id="<?php echo $a['clave']?>" style="  position: fixed;  display: none;  width: 100%;  height: 100%;  top: 0;  left: 0;  right: 0;  bottom: 0;  background-color: rgba(0,0,0,0.9);  z-index: 999;">
-<form action="index.php" method="post" class="sesion">
-<div id="cerrar"><a href="javascript:<?php echo $a['clave']."2"?>()"><i class="fa fa-times-circle" aria-hidden="true"></i></a></div>
-
-<img src="ww1.svg" style="width:80px" alt="">
-
-<?php 
-      echo "<div class='imagen' style='float:left;width:30%;'>";
-      echo "<div class='wrapperww' style='display:block; margin:auto;'><img style='margin:auto;' src= 'archivoscrearclase/".$a['usuario']."".$a['foto']."' onerror=this.src='curso.png'></div>";
-      echo "<div style='margin:auto;width:80%;'><h1>".$a['nombre']."</h1></div>";
-      echo "<div style='margin:auto;width:80%'>S/ ".$a['precio']."</div>";
-      echo "<input type='button' style='border:none;padding:5px;font-size:20px;font-family:Georgia;background:rgb(20,2,105);color:rgb(255,255,255);border-radius:5px 5px 0px 0px;cursor:pointer;' name='' class='buyButtonw' value='Comprar el curso' user='".$_SESSION['user']."' clave='".$a['clave']."' data-producto='".$a['nombre']."' data-precio='".$a['precio']."00'>";
-      echo "</div>";
-?>
-
-<div style="width:97%;float:left;display:block;width:33%;">
-<p>Introducción del curso</p>
-<object style="float:right;align:center;display:block;;margin:5px auto;width:300px;height:200px;" data="<?php echo $a['link'] ?>"></object>
-</div>
-
-<div style="float:right;display:block;width:33%;text-align:left;">
-
-
-<?php 
-echo "<p style='text-align:center;font-family:Georgia;;background:rgb(20,2,105);border-radius:5px;color:white;padding:5px;'>".$a['descripcion']."</p>";
-
-$conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$a['clave']."'");
-$zzw=mysqli_fetch_assoc($conzw);
-$ww=mysqli_num_rows($conzw);
-
-?>
-								<?php
-                echo "<ul>";
-								
-                if($ww>0){
-
-								$r=1;
-								do{
-                echo "<li><h1 style='font-weight:300;color:green;font-size:20px'>Capítulo ".$r.": ".$zzw['nombre']."</h1>";
-                echo "<ul>";
-                									
-									$conzww= mysqli_query($link,"SELECT * FROM secciones WHERE clavew='".$zzw['idcapitulo']."'");
-									$zzww=mysqli_fetch_assoc($conzww);								
-                  $www=mysqli_num_rows($conzww);
-                if($www>0){
-
-                  $i=1;
-								do{
-								echo "<li><a>Sección ".$i.": ".$zzww['nombre']."</a></li>";
-								$i++;
-								}while($zzww=mysqli_fetch_assoc($conzww));
-
-              }else{
-                echo "<li> No hay secciones creadas</li>";
-              }					
-              echo "</ul>";
-              echo "</li>";
-                
-                $r++;
-								}while($zzw=mysqli_fetch_assoc($conzw));
-                echo "</ul>";
-                }else{
-                echo "<li>No hay capítulos creadas</li>";
-                }					
-                ?>
-
-
-</div>
-
-</form> 
-</div>
 
 
 
-<?php 
-echo "<input type='button' style='border:none;padding:5px;font-family:Georgia;font-size:16px;background:rgb(20,2,105);color:rgb(255,255,255);border-radius:5px 5px 0px 0px;cursor:pointer;' name='' class='buyButtonw' value='Comprar el curso' user='".$_SESSION['user']."' clave='".$a['clave']."' data-producto='".$a['nombre']."' data-precio='".$a['precio']."00'>";
-echo "</div>";
-    }while($a=mysqli_fetch_assoc($con));
-}else{
-    echo "No hay clases creadas";
-}
-}
-?>
-</div>
 
-</article>
+
+
+
+
 
 
 <!--Culqi-->
 
 
+
 <script>
 Culqi.publicKey = 'pk_test_18d083b191518652';
-  
-var producto = "";
-var precio = "";
-var user = "";
-var clave = "";
-
-  $('.buyButtonw').on('click', function(e) {
+  $(document).on('click', '.buyButtonw', function(){
+//  $('.buyButtonw').on('click', function(e) {
 
 producto = $(this).attr('data-producto');
 precio = $(this).attr('data-precio');
 user = $(this).attr('user');
 clave = $(this).attr('clave');
+categoria = $(this).attr('categoria');
+curso  = $(this).attr('curso');
+id  = $(this).attr('id');
 
 Culqi.settings({
     title: producto,
@@ -468,26 +464,35 @@ Culqi.settings({
   });
 
 
+
+
 function culqi() {
   if (Culqi.token) { // ¡Objeto Token creado exitosamente!
         var token = Culqi.token.id;
         var email = Culqi.token.email;
         
-        var data = {producto:producto, precio:precio, token:token, email:email};
+        var data = {producto:producto, precio:precio, token:token, email:email,clave:clave,categoria:categoria,curso:curso,id:id};
         
         var url = "proceso.php";
+
+//$.ajax({
+//url:"cul.php",
+//method:"post", 
+//data:data,
+//success:function(data){
+//obtener_inicio();
+////   alert(data);
+//}})
 
 $.post(url,data,function(resw){
 if(resw.trim() === "exitoso") {
 alert('Tu pago fue exitoso. Agradecemos tu preferencia. Si es necesario, actualice la página para cargar su curso a su listado.')  ? "" : location.reload();
 
-
 var httpr=new XMLHttpRequest();
 httpr.open("POST", "./cul.php",true);
 httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-httpr.send("user="+user+" & clave="+clave);
+httpr.send("user="+ user +"&clave="+ clave +"&categoria="+ categoria +"&curso="+ curso +"&id="+ id);
 
-header("Location:unirse.php");
 }else{
       alert("No se logró realizar el pago.");
 
@@ -501,8 +506,6 @@ header("Location:unirse.php");
   }
 };
 </script>
-
-
 
 
 
@@ -654,93 +657,6 @@ httpr.send("user="+user+" & clave="+clave);
 
 
 
-
-
-
-<style>
-
-.contenedor{
-    display:flex;
-    width:100%;
-    
-    flex-wrap:wrap;
-    align-items: center;
-  justify-content: center;
-}
-.contenedor .imagen{
-text-align: center;
-width:250px;
-border-radius:10px;
-position:relative;
-margin:10px;
-background-color: rgb(250,205,250);
-#border: 2px solid rgb(100,10,170);
-#box-shadow:0px 1px 0px 1px rgba(0,0,0,.2);
-}
-
-
-
-.wrapperest {
-  width:100px;
-  height:100px;
-  overflow: hidden;
-  border-radius:50%;
-  position: relative;
-  object-fit:cover;
-}
-.wrapperest img {
-  height:283px;
-  position: absolute;
-  top:50%;
-  left:50%;
-  object-fit:cover;
-  transform: translate(-50%,-50%)
-}
-
-
-</style>
-
-
-
-
-<?php
-if($w['tipo']=='estudiante'){
-  ?>
-  <article style="background:rgb(50,0,50);">
-<h1 style="color:rgb(250,200,250);">
-Tus cursos</h1>
-<?php
-
-
-if(isset($_REQUEST['ew'])){
-  mysqli_query($link,"DELETE FROM misclases WHERE idmiclase=".$_REQUEST['ew']);
-}
-
-$con= mysqli_query($link,"SELECT clase.nombre, misclases.idmiclase, clase.clave, clase.foto, clase.usuario FROM clase, misclases WHERE clase.clave=misclases.clave AND misclases.usuario='".$w['email']."'");
-$n=mysqli_num_rows($con);
-$ww=mysqli_fetch_assoc($con);
-//   echo $w['email'];
-    ?>
-<div class= "contenedor">
-<?php  
-$_SESSION['clave']=$ww['clave'];
-
-if($n>0){
-  do{
-    echo "<a style=';text-decoration: none;cursor:pointer;' href='capitulo.php?clave=".$ww['clave']."'>";
-    echo "<div class='imagen'>";
-    echo "<div style='background:rgb(80,0,80);padding:3px;border-radius:0px 0px 5px 5px;width:80%; margin:10px auto; color:rgb(255,255,255);'>Ir a la clase</div>";
-    echo "<div class='wrapper' style='margin:5px auto;'><img src= 'archivoscrearclase/".$ww['usuario']."".$ww['foto']."' onerror=this.src='curso.png'></div>";
-    echo "<h1 style='background:rgb(70,70,70);border-radius:5px 5px 0px 0px;width:90%; margin:10px auto;font-size:23;padding:3px;color:rgb(250,200,270)'>" .$ww['nombre']. "</h1>";
-    echo "</div>";
-    echo "</a>";
-  }while($ww=mysqli_fetch_assoc($con));
-}else{
-    echo "<h2>No tienes cursos disponibles, obtenga uno de nuestros cursos de arriba</h2>";
-}
-}
-?>
-</div>
 
 
 

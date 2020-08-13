@@ -12,9 +12,98 @@ if(isset($_REQUEST['cerrar'])){
    header("Location:index.php");
 }
 
+$_SESSION['clavew']=$_GET['clavew'];
+$_SESSION['clave']=$_GET['clave'];
+
 ?>
 
-<title>Inicio</title>
+<title>Secciones</title>
+
+
+
+
+
+<script src="jquery-3.0.0.min.js"></script>
+
+
+<script>
+$(document).ready(function(){
+function obtener_secciones(){
+$.ajax({
+url:"mostrar_secciones.php",
+method:"POST", 
+success:function(data){
+$("#resultadosecciones").html(data)
+}
+})
+}
+obtener_secciones();
+
+
+
+
+
+
+//ACTUALIZAR seccion
+function actualizarsec(id,texto,columna){
+$.ajax({
+url:"datos_secciones.php",
+method:"post",
+data:{id: id, texto: texto, columna: columna},
+success:function(data){
+obtener_secciones();
+alert(data);
+}})}
+
+
+$(document).on("blur", "#www", function(){
+var idw=$(this).data("wwt");
+var x1w=$(this).html();
+alert(idw);
+alert(x1w);
+actualizarsec(id, x1,"nombre")
+})
+
+//ACTUALIZAR tarea de seccion
+$(document).on("blur", "#sec_tarea", function(){
+var id=$(this).data("c1www");
+var x1=$(this).html();
+actualizarsec(id, x1,"tarea")
+})
+
+$(document).on("blur", "#rrr", function(){
+var id=$(this).data("wwtexto");
+var x1=$(this).html();
+alert(id);
+//actualizarsec(id, x1,"texto")
+})
+
+
+//ELIMINAR seccionw
+$(document).on("click", "#deleteww", function(){
+if(confirm("Esta seguro de eliminar esta fila")){
+var idw=$(this).data("idw");
+//alert(idw);
+$.ajax({
+url:"datos_capitulos.php",
+method:"post",
+data:{ideleteww:idw},
+success:function(data){
+obtener_secciones();
+//alert(data);
+}
+})
+};
+})
+
+obtener_secciones();
+
+});
+
+</script>
+
+
+<div id ="resultadosecciones"></div>
 
 
 
@@ -35,7 +124,7 @@ if(isset($_REQUEST['jjw'])){
     $n = $_REQUEST['nombre'];
     $n = mysqli_real_escape_string($link, $n);
     $text = $_REQUEST['text'];
-       $text = mysqli_real_escape_string($link, $text); 
+    $text = mysqli_real_escape_string($link, $text); 
     $tarea = $_REQUEST['tarea'];
     mysqli_query($link, "INSERT INTO secciones VALUES(NULL, '$n','$text', '$clave', '$tarea', '$clav')");
 }
@@ -72,19 +161,17 @@ if($w['tipo']=='docente'){
 ?>
 <div style= "    display:flex;    width:100%;    flex-wrap:wrap;    align-items: center;    justify-content: center;">
   <?php
-//echo $_SESSION['clave']."<br>";
-//echo $_SESSION['user']."<br>";
-//echo $_SESSION['clavew']."<br>";
+
 if($n>0){
 $i=1;
   do{
       echo "<a style='cursor: pointer;;text-decoration: none;color:white;' href='sesion.php?claveww=".$a['idseccion']."'>";
       echo "<div class='imagen' style='float:left;'>";
       echo "<div style='text-align: center;background:rgb(90,95,90);width:350px;border-radius:10px;position:relative;margin:5px;box-shadow:0px 0px 5px 0px rgba(0,0,0,.75);'>";   
-      echo "Seccion ".$i."<div style='margin:auto;width:80%'><h1>" .$a['nombre']." ".$a['idseccion']. "</h1></div>";
+      echo "Seccion ".$i."<div style='margin:auto;width:80%;color:rgb(10,10,100);'><h1>" .$a['nombre']."</h1></div>";
 //      echo "<div style='margin:auto;width:80%'><p>" .$a['texto']. "</p></div>";
 
-$nombre=mysqli_query($link,"SELECT * FROM usuario WHERE email='".$_SESSION['user']."'");
+$nombre=mysqli_query($link,"SELECT * FROM usuario WHERE idusuario='".$_SESSION['user']."'");
 $usuario=mysqli_fetch_assoc($nombre);
 
 
@@ -98,11 +185,11 @@ if($ntsw>0){
   echo "<td>".$arraytareas['fecha']."</td><br>";
   //echo "<td>".$arraytareas['texto']."</td>";
 }else{
-  echo "<h1 style='font-size:20px;color:rgb(100,0,100);'>Aún no entregó tarea</h1>";
+  echo "<h1 style='font-size:20px;color:rgb(200,0,10);'>Aún no entregó tarea</h1>";
 }
 }
 if($w['tipo']=='docente'){
-$works=mysqli_query($link,"SELECT * FROM tareas, usuario WHERE usuario.email=tareas.usuario AND idplan='".$a['idseccion']."' AND clave='".$_SESSION['clave']."'");
+$works=mysqli_query($link,"SELECT * FROM tareas, usuario WHERE usuario.idusuario=tareas.usuario AND idplan='".$a['idseccion']."' AND clave='".$_SESSION['clave']."'");
 $worksw=mysqli_fetch_assoc($works);
 $nw=mysqli_num_rows($works);        
 
@@ -115,12 +202,12 @@ if($nw>0){
   
 }while($worksw=mysqli_fetch_assoc($works));  
 }else{
-  echo "<h1 style='font-size:20px;color:rgb(100,0,100);'>Aún no entregaron tarea</h1>";
+  echo "<h1 style='font-size:20px;color:rgb(180,0,10);'>Aún no entregaron tarea</h1>";
 }
 echo "</table>";
 }
 
-      echo "<div style='margin:auto;width:80%;color:rgb(70,0,70)'><p>Ver sección</p></div>";
+      echo "<div style='margin:auto;width:80%;color:rgb(0,10,200)'><p>Ver sección</p></div>";
       if($w['tipo']=='docente'){
         echo "<a href='updateseccion.php?update=".$a['idseccion']."' style='margin:auto;width:80%; text-decoration:none;color:rgb(275,105,75);'> Editar </a>";
         echo "<a style='text-decoration: none;' href=\"javascript:preguntarw('".$_SESSION['clavew']."',  '".$_SESSION['clave']."', '".$a['idseccion']."')\"><div  style='margin:auto;width:80%; margin-bottom:0px;'><p style='border-radius:5px 5px 0px 0px;background:rgb(200,100,100);'>Eliminar</p></div></a>";
@@ -247,7 +334,7 @@ cursor:pointer;
 
   <?php
 
-
+//echo $_SESSION['clavew'];
 $conw1=mysqli_query($link,"SELECT * FROM secciones WHERE clavew='".$_SESSION['clavew']."'");
       $ww1=mysqli_fetch_assoc($conw1);
       $nw1=mysqli_num_rows($conw1);
@@ -256,8 +343,13 @@ $conw1=mysqli_query($link,"SELECT * FROM secciones WHERE clavew='".$_SESSION['cl
       if($nw1>0){
   $j=1;
   do{
-//    echo "<div style='margin:auto;width:90%;background:rgb(250,255,255);'><h1>Seccion ".$j.": ".$ww1['nombre']. "</h1></div>";
-    echo "<button id='".$ww1['idseccion']."7' style='margin-left:35px;border:none;padding:5px;width:90%;background:rgb(110,100,100);margin:1px;border-radius:5px;font-family:serif;font-size:20px;text-align:left;color:rgb(255,255,255);cursor:pointer;'>Sección ".$j.": ".$ww1['nombre']."</button>";
+
+    echo "<button style='border:none;border-radius:5px;padding:5px;cursor:pointer' id='deletew' data-idw='".$ww1['idseccion']."'><span class='fa fa-trash'></span></button>";
+
+    //    echo "<div style='margin:auto;width:90%;background:rgb(250,255,255);'><h1>Seccion ".$j.": ".$ww1['nombre']. "</h1></div>";
+    echo "<button id='".$ww1['idseccion']."7' style='margin-left:35px;border:none;padding:5px;background:rgb(110,100,100);margin:1px;border-radius:5px;color:rgb(255,255,255);cursor:pointer;display:inline-block;'>
+    Sección ".$j.":</button>
+    <div id='".$ww1['idseccion']."7' style='margin-left:35px;border:none;padding:5px;width:50%;background:rgb(110,10,100);margin:1px;border-radius:5px; color:rgb(255,255,255);cursor:pointer;display:inline-block;'>Sección ".$j.": ".$ww1['nombre']."</div><br>";
     echo "<div style='display:none;' id='".$ww1['idseccion']."'>";
   
   ?>     

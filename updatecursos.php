@@ -19,7 +19,7 @@ $tareas=mysqli_query($link,"SELECT * FROM clase WHERE idclase='".$_SESSION['clav
 $arraytareas=mysqli_fetch_assoc($tareas);
 $nts=mysqli_num_rows($tareas);
 
-echo $arraytareas['usuario'];
+//echo $arraytareas['usuario'];
 
 if(isset($_REQUEST['actualizar'])){
    $text=$_REQUEST['texto'];
@@ -53,13 +53,10 @@ if(isset($_REQUEST['www'])){
 }
 
 ?>
-<form action="updatecursos.php?update=<?php echo $_SESSION['claves']?>" method="post" enctype="">
-<input type="submit" value="ww" name="www">
-</form>
 
 
 
-<?php include('first.php'); ?><?php include('margin.php'); ?>
+<?php include('first.php'); ?>
 
 
 
@@ -76,8 +73,8 @@ Foto actual: <?php echo $arraytareas['usuario'].$arraytareas['foto']; ?><br>Camb
 
   <input style='border:1px solid;padding:5px;border-radius:3px;width:350px;margin:5px' type="text" name="link" value="<?php echo $arraytareas['link']?>" required>
 
-<textarea name="texto"><?php echo$arraytareas['descripcion']?></textarea>
-<input class="crearclase" style="background:rgb(155,200,225);cursor:pointer; border:none;padding:7px;"  type="submit" value="Actualizar" name="actualizar"><br>
+<textarea style="background:rgb(255,255,225);border:1px solid;color:rgb(0,0,10);" name="texto"><?php echo$arraytareas['descripcion']?></textarea>
+<input class="crearclase" style="background:rgb(255,255,225);border:1px solid;cursor:pointer;padding:7px;;border-radius:3px;"  type="submit" value="Actualizar datos" name="actualizar"><br>
 </form>
 
 

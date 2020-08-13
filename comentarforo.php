@@ -33,7 +33,7 @@ $ntemas=mysqli_num_rows($qtemas);
 $arraytemas=mysqli_fetch_assoc($qtemas);
 
 
-$qcomen=mysqli_query($link,"SELECT * FROM comentarios, usuario WHERE comentarios.usuario=usuario.usuario AND idtema='".$_SESSION['tema']."' ORDER BY fecha DESC");
+$qcomen=mysqli_query($link,"SELECT * FROM comentarios, usuario WHERE comentarios.usuario=usuario.idusuario AND idtema='".$_SESSION['tema']."' ORDER BY fecha DESC");
 $ncomen=mysqli_num_rows($qcomen);
 $arraycomen=mysqli_fetch_assoc($qcomen);
 

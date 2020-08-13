@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-	 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+	
 .mainw {
 	max-height: 550px;;
 	background-color: #2c2f;
@@ -41,7 +42,7 @@
 }
 
 .footer-distributed h3 span{
-	color:  rgb(100,30,100);
+	color:  rgb(10,50,70);
 }
 
 
@@ -59,7 +60,7 @@
 }
 
 .footer-distributed .footer-company-name{
-	color:  rgb(100,30,100);
+	color:  rgb(255,85,85);
 	font-size: 14px;
 	font-weight: normal;
 	margin: 0;
@@ -76,8 +77,8 @@
 }
 
 .footer-distributed .footer-center i{
-	background-color:  rgb(70,0,70);
-	color: rgb(170,200,170);
+	background-color:  rgb(255,255,255);
+	color: rgb(70,0,70);
 	font-size: 25px;
 	width: 38px;
 	height: 38px;
@@ -142,12 +143,12 @@
 #	width: 30px;
 #	height: 30px;
 	cursor: pointer;
-	background-color:  rgb(70,0,70);
+	background-color:  rgb(255,255,255);
 	border-radius: 2px;
 padding:5px;
 	font-size: 30px;
 	border-radius:7px;
-	color: rgb(210,200,200);
+	color: rgb(70,0,70);
 	text-align: center;
 	line-height: 35px;
 
@@ -184,28 +185,30 @@ padding:5px;
 }
     </style>
 
+<?php
+	$ff=mysqli_query($link,"SELECT * FROM foot");
+	$ff1=mysqli_fetch_assoc($ff);
+//	echo "<img id='upfilew2' style='height:155px ;cursor:pointer;' data-c1='rrrr' src= 'archivosland/".$aboutw2['idland']."".$aboutw2['foto']."' onerror=this.src='curso.png'>";
+?>
+
+<?php
+	$about2=mysqli_query($link,"SELECT * FROM land WHERE tipo='logo'");
+	$aboutw2=mysqli_fetch_assoc($about2);
+//	echo "<img id='upfilew2' style='height:155px ;cursor:pointer;' data-c1='rrrr' src= 'archivosland/".$aboutw2['idland']."".$aboutw2['foto']."' onerror=this.src='curso.png'>";
+?>
 
 		
 		<footer class="footer-distributed">
 
 			<div class="footer-left">
 
-				<h3>Interactive<span>Learn</span></h3>
+				<h3><?php echo $ff1['t1']?></h3>
 
-				<p class="footer-links">
-					<a href="#">Inicio</a>
-					·
-					<a href="#">Blog</a>
-					·
-					<a href="#">Precios</a>
-					·
-					<a href="#">Faq</a>
-					·
-					<a href="#">Contacto</a>
-				</p>
-				<p class="footer-company-name">Classfisma &copy; 2019</p>
+				<p class="footer-links"><?php echo $ff1['t2']?>				</p>
+				<p class="footer-company-name"><?php echo $ff1['t3']?></p>
+
 <div style="margin:10px">
-<img src="ww1.svg" style="width:100px" alt="">
+<img src="archivosland/<?php echo $aboutw2['idland']."".$aboutw2['foto']?>" onerror=this.src="curso.png" style="height:100px;border-radius:5px;" alt="">
 </div>
 			</div>
 
@@ -214,39 +217,48 @@ padding:5px;
 
 				<div>
 					<i class="fa fa-map-marker"></i>
-					<p>Jr Untiveros Ayacucho, Perú</p>
+					<p><?php echo $ff1['t4']?></p>
 				</div>
 
 				<div>
 					<i class="fa fa-phone"></i>
-					<p>+1 50 966878340</p>
+					<p><?php echo $ff1['t5']?></p>
 				</div>
 
 				<div>
 					<i class="fa fa-envelope"></i>
-					<p><a href="mailto:support@company.com">ricardomallqui6@gmail.com</a></p>
+					<p><a href="<?php echo $ff1['t6']?>"><?php echo $ff1['t6']?></a></p>
 				</div>
 
 			</div>
 
 			<div class="footer-right">
 
-					<h3>About</h3>
-				<p style="color:white;font-size:15px">
+					<h3></h3>
+				<p style="color:white;font-size:15px"><?php echo $ff1['t7']?></p>
 
-					Físico matemático, artista plástico y programador web didáctico, gráfico deseñador, desarrollador &amp; Rstudio LaTeX Editor, php three.js, css, html.
-				</p>
-
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- https://msng.link/o/?ricardo.mallquib=fm -->
 				<div class="footer-icons">
-
-					<a target="_blank"  href="https://web.facebook.com/?_rdc=1&_rdr"><i class="fa fa-facebook"></i></a>
-					<a target="_blank"  href="#"><i class="fa fa-twitter"></i></a>
-					<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/mallquibanos/"><i class="fa fa-instagram"></i></a>
-					<a target="_blank" href="https://github.com/ricardofisma?tab=repositories"><i class="fa fa-github"></i></a>
+				    <a target="_blank" href="<?php echo $ff1['t8']?>"><i class="fab fa-whatsapp"></i></a>
+					<a target="_blank" href="<?php echo $ff1['t9']?>"><i class="fab fa-facebook-messenger"></i></a>
+					<a target="_blank" href="<?php echo $ff1['t10']?>"><i class="fab fa-facebook"></i></a>
+					<a target="_blank" href="<?php echo $ff1['t11']?>"><i class="fab fa-twitter"></i></a>
+					<a target="_blank" rel="noopener noreferrer" href="<?php echo $ff1['t12']?>"><i class="fab fa-instagram"></i></a>
+					<a target="_blank" href="<?php echo $ff1['t13']?>"><i class="fab fa-github"></i></a>
+					<a target="_blank" href="<?php echo $ff1['t14']?>"><i class="fab fa-youtube"></i></a>
+					<a target="_blank" href="<?php echo $ff1['t15']?>"><i class="fab fa-blogger"></i></a>
 
 				</div>
 
 			</div>
 
 		</footer>
+
+
+
+<style>
+.ww{
+margin-right:0px;  overflow: hidden;  position: fixed;  bottom: 0;  right:0;  z-index: 9999;# background: rgb(50,0,50); border-radius:5px;
+}
 

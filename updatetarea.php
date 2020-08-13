@@ -11,7 +11,6 @@ if(isset($_REQUEST['cerrar'])){
    header("Location:index.php");
 }
 
-
 //echo $_SESSION['claveww'];
 //echo $_SESSION['clave'];
 
@@ -23,8 +22,6 @@ $nts=mysqli_num_rows($tareas);
 //echo $_SESSION['user'];
 
 //$_SESSION['claveww']=$_GET['claveww'];
-
-
 
 if(isset($_REQUEST['actualizar'])){
     $text=$_REQUEST['texto'];

@@ -6,16 +6,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="w.ico">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="font-awesome.min.css">
-<script type="text/javascript" src="jsxgraphcore.js"></script>
-<link rel="stylesheet" href="jsxgraph.css">
 
-<script type='text/javascript'>
-		JXG.Options.text.useMathJax = true;
-    JXG.Options.text.fontSize = 14;
-    JXG.Options.axis.ticks.strokeOpacity = 0;
-    JXG.Options.axis.ticks.insertTicks = false;
-		JXG.Options = JXG.merge(JXG.Options, { showNavigation: false, point: { face: 'o', size: 1, color: '#000000' } });
-</script>
 
 
 
@@ -26,10 +17,6 @@ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorM
 MathJax.Hub.Config({TeX: {equationNumbers: { autoNumber:"AMS"}}, tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}, "HTML-CSS": { availableFonts: ["Tex"] }});
 MathJax.Hub.processSectionDelay = 0;
 </script>
-
-
-
-
 
 
 
@@ -193,7 +180,7 @@ left:-72px;top:2px;
 
 require('conect.php');
 
-$user=mysqli_query($link,"SELECT * FROM usuario WHERE email='".$_SESSION['user']."'")     ;
+$user=mysqli_query($link,"SELECT * FROM usuario WHERE idusuario='".$_SESSION['user']."'")     ;
 $w=mysqli_fetch_assoc($user);
 ?>
 
@@ -258,7 +245,7 @@ $w=mysqli_fetch_assoc($user);
 echo "<div class='imagen' style='float:left;'>";
 echo 
 "<div style='width:45px;height:45px;overflow:hidden;border-radius:50%;position:relative;  object-fit:cover;'>
-<div><img style='margin:auto;height:45px;  position: absolute;  top:50%;  left:50%;  object-fit:cover;  transform: translate(-50%,-50%)' src= 'archivos/".$w['usuario']."".$w['foto']."' onerror=this.src='foto.png'>
+<div><img style='margin:auto;height:45px;  position: absolute;  top:50%;  left:50%;  object-fit:cover;  transform: translate(-50%,-50%)' src= 'archivos/".$w['idusuario']."".$w['foto']."' onerror=this.src='foto.png'>
 </div>
 </div>
 </div>"

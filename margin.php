@@ -10,6 +10,11 @@ if(isset($_REQUEST['cerrar'])){
    session_destroy();
    header("Location:index.php");
 }
+  
+  if(isset($_REQUEST['clave']) && !empty($_REQUEST['clave'])){
+    $_SESSION['clave']=$_REQUEST['clave'];
+  }
+
 
 $conz= mysqli_query($link,"SELECT clase.nombre FROM clase WHERE clave='".$_SESSION['clave']."'");
     $zz=mysqli_fetch_assoc($conz);
@@ -35,8 +40,8 @@ $conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['cla
 	<script src="js/main.js"></script>
 
 	<header>
-		<span id="button-menu" class="fa fa-bars"></span>
-
+		<span id="button-menu" class="fa fa-bars"><span style="font-family:Georgia;"> <?php echo $zz['nombre']?></span></span>
+  
 		<nav class="navegacion"  id="buttonw-menuw" style='cursor:pointer;'>
 			<ul class="menu">
 				<!-- TITULAR
@@ -45,7 +50,7 @@ $conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['cla
 				
 				<li><a href="capitulo.php?clave=<?php echo $_SESSION['clave'];?>"><span class="fa fa-home icon-menu"></span>Inicio del curso</a></li>
 				
-				
+				<!--
 				<li class="item-submenu" menu="2">
 					<a href="#"><span class="fa fa-book icon-menu"></span><?php echo $zz['nombre']?></a>
 					<ul class="submenu">
@@ -84,14 +89,17 @@ $conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['cla
 
 					</ul>
 				</li>
-				
-				<li>  <a href="foro.php"><span class="fa fa-comments-o icon-menu"></span>Foro</a></li> 
-				<li>  <a href="tareas.php"><span class="fa fa-tasks icon-menu"></span>Tareas</a></li> 
-				<li>  <a href="calificaciones.php"><span class="fa fa-list icon-menu"></span>Calificaciones</a></li> 
-				<li>  <a href="email.php"><span class="fa fa-envelope icon-menu"></span>Email</a></li> 
-				<li>  <a href="archivos.php" ><span class="fa fa-archive icon-menu"></span>Archivos</a></li> 
+				-->
+			
+				<li>  <a href="inicio.php"><span class="fa fa-home icon-menu"></span>Categorias</a></li> 
+				<li>  <a href="foro.php"><span class="fa fa-comments icon-menu"></span>Foro</a></li> 
+				<li>  <a href="calendario.php"><span class="fa fa-calendar-o icon-menu"></span>Calendario</a></li> 
+				<li>  <a href="chatt.php"><span class="fa fa-users icon-menu"></span>Chat</a></li>
 				<li>  <a href="miembros.php"><span class="fa fa-users icon-menu"></span>Integrantes</a></li>
-				<li>  <a href="inicio.php?cerrar=1"><span class="fa fa-sign-out icon-menu"></span>Cerrar sesión</a></li>
+				<li>  <a href="email.php"><span class="fa fa-envelope icon-menu"></span>Email</a></li> 
+				<li>  <a href="examen.php"><span class="fa fa-users icon-menu"></span>Examen y tarea</a></li>
+				<li>  <a href="calificaciones.php"><span class="fa fa-list icon-menu"></span>Calificaciones</a></li> 
+				<li>  <a href="inicio.php?cerrar=1"><span class="fas fa-sign-out-alt icon-menu"></span>Cerrar sesión</a></li>
 <!--
 				<li class="item-submenu" menu="1">
 					<a href="#"><span class="fa fa-suitcase icon-menu"></span>Servicios</a>

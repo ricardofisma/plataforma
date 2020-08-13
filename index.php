@@ -1,7 +1,6 @@
 <?php
 require('conect.php');
 session_start();
-
 if(isset($_REQUEST['correo']) && !empty($_REQUEST['correo'])){
 	$u=$_POST['correo'];
     $p=$_POST['pass'];
@@ -9,17 +8,13 @@ if(isset($_REQUEST['correo']) && !empty($_REQUEST['correo'])){
 	$nesta=mysqli_num_rows($esta);
 	$estaw=mysqli_fetch_assoc($esta);
 	if($nesta==1){
-//		echo "<script> alert('".$estaw['idusuario']."')</script>";
+		//		echo "<script> alert('".$estaw['idusuario']."')</script>";
 		$_SESSION['user']=$estaw['idusuario'];
 		header("Location:inicio.php");
 }else{
 	echo "<script> alert('Email o contraseña incorrecto')</script>";
 }
 }
-
-
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -388,7 +383,7 @@ document.getElementById("fff").style.display="none"
 
 <script>
 $(document).ready(function(){
-function get_data(){
+function getw_data(){
 $.ajax({
 url:"indexajax.php",
 method:"POST", 
@@ -397,8 +392,56 @@ success:function(data){
 }
 })
 }
-get_data();
 
+//INSERTAR BENEFICIOS
+$(document).on("click", "#additems", function(){
+var text="Edite";
+//   alert(text);
+$.ajax({
+url:"datos_index.php",
+method:"post",
+data:{textitems:text},
+success:function(data){ 
+getw_data();
+//   alert(data);
+}
+})
+})
+
+//INSERTAR BENEFICIOS
+$(document).on("click", "#add", function(){
+var text="Edite";
+//   alert(text);
+$.ajax({
+url:"datos_index.php",
+method:"post",
+data:{text:text},
+success:function(data){ 
+getw_data();
+//   alert(data);
+}
+})
+})
+
+
+
+
+//INSERTAR videodescripcion
+$(document).on("click", "#addvideo", function(){
+var text="Edite";
+//   alert(text);
+$.ajax({
+url:"datos_index.php",
+method:"post",
+data:{textvideo:text},
+success:function(data){ 
+getw_data();
+//   alert(data);
+}
+})
+})
+
+		
 //ACTUALIZAR
 function actualizar_datos(id,texto,columna){
 $.ajax({
@@ -406,22 +449,147 @@ url:"datos_index.php",
 method:"post",
 data:{id: id, texto: texto, columna: columna},
 success:function(data){
-get_data();
-alert(data);
-}
-})
-}
-//ACTUALIZAR CONTINUACION
+getw_data();
+//alert(data);
+}})}
+
+//ACTUALIZAR texto
 $(document).on("blur", "#ww1", function(){
 var id=$(this).data("c1");
 var x1=$(this).text();
-alert(x1);
+//alert(id);
 actualizar_datos(id, x1,"texto")
+})
+//ACTUALIZAR videoescripcion
+$(document).on("blur", "#wwvideo", function(){
+var id=$(this).data("c1");
+var x=$(this).val();
+var x1 = x.replace('https://www.youtube.com/watch?v=', 'http://www.youtube.com/embed/');
+//alert(x1);
+//alert(id);
+actualizar_datos(id, x1,"archivo")
+})
+//ACTUALIZAR nombre
+$(document).on("blur", "#wwnombre", function(){
+var id=$(this).data("c1"); 
+var x1=$(this).text();     
+//alert(id);
+actualizar_datos(id, x1,"nombre")
+})
+//ACTUALIZAR color
+$(document).on("change", "#color", function(){
+var id=$(this).data("c1");
+var x1=$(this).val();
+//alert(x1);
+//alert(id);
+actualizar_datos(id, x1,"color")
+})
+
+//ACTUALIZAR color2
+$(document).on("change", "#color2", function(){
+var id=$(this).data("c1");
+var x1=$(this).val();
+//alert(x1);
+//alert(id);
+actualizar_datos(id, x1,"color2")
 })
 
 
+//actualizar archivos logo.
+$(document).on("change", "#imagew2", function() {
+var id=$(this).data("c1");
+    var data = new FormData();
+    data.append('filesww', $('#imagew2')[0].files[0]);
+    data.append('id',id);
+//    data.append('user',user);	
+//  alert(id);
+$.ajax({ 
+        type: 'post',
+        url: "datos_index.php",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (data) {
+getw_data();
+//        alert(data);
+        }
+    });
+});
 
 
+//archivos foto insert.
+$(document).on("change", "#imagew", function() {
+    var data = new FormData();
+    data.append('filesw', $('#imagew')[0].files[0]);
+//    data.append('claves',claves);
+//    data.append('user',user);	
+//  alert("data");
+
+$.ajax({
+        type: 'post',
+        url: "datos_index.php",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (data) {
+getw_data();
+//        alert(data);
+        }
+    });
+});
+
+
+
+//ACTUALIZAR footer
+function actualizarw(id,texto,columna){
+$.ajax({
+url:"datos_index.php",
+method:"post",
+data:{id: id, textff: texto, columna: columna},
+success:function(data){
+getw_data();
+//   alert(data);
+}})}
+//ACTUALIZAR textff
+$(document).on("blur", "#ffw", function(){var id=$(this).data("c1");var x1=$(this).val();actualizarw(id, x1,"t1")})
+$(document).on("blur", "#ffw2", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t2")})
+$(document).on("blur", "#ffw3", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t3")})
+$(document).on("blur", "#ffw4", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t4")})
+$(document).on("blur", "#ffw5", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t5")})
+$(document).on("blur", "#ffw6", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t6")})
+$(document).on("blur", "#ffw7", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t7")})	
+$(document).on("blur", "#ffw8", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t8")})
+$(document).on("blur", "#ffw9", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t9")})
+$(document).on("blur", "#ffw9", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t9")})
+$(document).on("blur", "#ffw10", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t10")})
+$(document).on("blur", "#ffw11", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t11")})
+$(document).on("blur", "#ffw12", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t12")})
+$(document).on("blur", "#ffw13", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t13")})
+$(document).on("blur", "#ffw14", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t14")})
+$(document).on("blur", "#ffw15", function(){var id=$(this).data("c1");var x1=$(this).text();actualizarw(id, x1,"t15")})
+
+
+
+
+//ELIMINAR ids
+$(document).on("click", "#deleter", function(){
+if(confirm("Esta seguro de eliminar esta fila")){
+var idw=$(this).data("ff");
+//   alert(idw);
+//   alert(idw);
+$.ajax({ 
+url:"datos_index.php",
+method:"post",
+data:{idele:idw},
+success:function(data){
+getw_data();
+//alert(data);
+}
+})
+};
+})
+
+getw_data();
 
 });
 </script>
@@ -450,7 +618,7 @@ margin:10px;
 background-color: rgb(30, 5, 50);
 box-shadow:0px 0px 0px 0px rgba(0,0,0,.75);
 }
-
+	
 .jxgbox{
 width: 350px;
 height: 380px;
@@ -691,86 +859,6 @@ var segmento1 = board.create('segment', [int1, int2], { strokeColor: 'green', st
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1 style="width:70%;text-align:center;color:white;background:black;margin:5px auto;border-radius:5px;">
-
-Evidencias
-</h1>
-<div style="width:97%;text-align:center;color:white;background:rgb(70,0,100);margin:5px auto;border-radius:5px;padding:5px;">
-	los beneficios son aprendder dinamicamentee donde el estudiante inteactua con objetos didacticosaemas de registrar sus aprendizaje de manera continua y sacar un promedio al final de cada seccion. 
-		Se provee de cursos divididos en niveles, las cuales a su vez se dividen en secciones con sus repectivas actividades dejadas para los estdiantes que seran calificadas. El estudiante podria pasar al siguente nivel si solo si obtuvo un promedio aprobatorio en nota vigesimal en el nivel anterior
-</div>
-
-
-
-
-<div class="contenedorw">
-<div class='imagenw'>													
- <object style="align:center;display:block;;margin:5px auto;width:97%;height:300px;" data="http://www.youtube.com/embed/zoGqt6ObPC8"></object>
-		<h1 style="text-align:center;color:white;background:black;margin-bottom:5px;">wewew</h1>
-	<div style="text-align:center;color:white;background:black;border-radius:0px 0px 5px 5px;">
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nobis unde, quibusdam ad voluptatem fuga culpa suscipit fugiat aut ipsam quidem, deleniti doloremque itaque, blanditiis eaque aliquam quod excepturi sunt.
-	</div>
-</div>
-
-
-<div class='imagenw'>
- <object style="align:center;display:block;;margin:5px auto;width:97%;height:300px;" data="http://www.youtube.com/embed/PnWWRobxV4Y"></object>
-		<h1 style="text-align:center;color:white;background:black;margin-bottom:5px;">wewew</h1>
-	<div style="text-align:center;color:white;background:black;border-radius:0px 0px 5px 5px;">
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nobis unde, quibusdam ad voluptatem fuga culpa suscipit fugiat aut ipsam quidem, deleniti doloremque itaque, blanditiis eaque aliquam quod excepturi sunt.
-	</div>
-</div>
-
-
-<div class='imagenw'>
- <object style="align:center;display:block;;margin:5px auto;width:97%;height:300px;" data="http://www.youtube.com/embed/tjWdKYkKTUs"></object>
- 		<h1 style="text-align:center;color:white;background:black;margin-bottom:5px;">wewew</h1>
-	<div style="text-align:center;color:white;background:black;border-radius:0px 0px 5px 5px;">
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nobis unde, quibusdam ad voluptatem fuga culpa suscipit fugiat aut ipsam quidem, deleniti doloremque itaque, blanditiis eaque aliquam quod excepturi sunt.
-	</div>
-</div>
-</div>
-
-
-
-<style>
-.contenedorw{
-    display:flex;
-    width:100%;
-    
-    flex-wrap:wrap;
-    align-items: center;
-  justify-content: center;
-}
-.contenedorw .imagenw{
-text-align: center;
-width:390px;
-border-radius:10px;
-position:relative;
-margin:10px;
-background-color: rgb(31, 100, 90);
-box-shadow:0px 0px 0px 0px rgba(0,0,0,.75);
-}
-
-</style>
-
 
 
 
@@ -1031,15 +1119,6 @@ var toggleTrace = function() {
   }
 };
 </script>
-
-
-
-
-
-
-$$ \frac{1}{(2\sigma)^\frac{\nu}{2}\Gamma\left(\frac{\nu}{2}\right)}x^{\frac{\nu}{2}-1}\exp\left\{-\frac{x}{2\sigma}\right\}$$
-
-
 
 
 
