@@ -43,7 +43,7 @@ $queryarchivos=mysqli_query($link,"SELECT * FROM archivos WHERE clave='".$_SESSI
 $numarchivos=mysqli_num_rows($queryarchivos);
 $todoslosarchivo=mysqli_fetch_assoc($queryarchivos);
 
-echo "<article>";
+//   echo "<article>";
 echo "<div style= 'display:flex;width:100%;flex-wrap:wrap;align-items: center;justify-content:center;font-size:15px'>";
 echo "<div style='margin:auto;width:90%;background:rgb(20,50,5);padding:5px;text-align:center;color:white;border-radius:5px;'>ARCHIVOS DEL CURSO</div>";
 if($numarchivos>0){
@@ -78,7 +78,7 @@ function fileUpload() {
 
     <?php
 
-echo "</article>";
+//echo "</article>";
 
 
 $con=mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['clave']."'");
@@ -99,8 +99,6 @@ $w=mysqli_fetch_assoc($user);
 
 
 
-
-<article>
 
   
   <style>
@@ -128,9 +126,11 @@ if($nw>0){
     echo "<article style='margin:10px auto;padding:5px;background:rgb(100,200,200);'>";
     if($w['tipo']=='docente'){  
       echo "<button style='border:none;border-radius:5px;padding:5px;;cursor:pointer' id='deletew' data-idw='".$ww['idcapitulo']."'><span class='fa fa-trash'></span></button>";
+      
       echo "<button id='".$i.$i.$i.$i.$i.$i.$i.$i."w' style='border:none;padding:5px;background:rgb(50,100,50);border-radius:5px;text-align:left;color:rgb(255,255,255);cursor:pointer;'>Capitulo ".$i.": </button>
-      <input style='display:inline-block;background:rgb(255,255,255);padding:5px;border:none;width:500px;' id='cpt' data-c1 = '".$ww['idcapitulo']."' contenteditable value='".$ww['nombre']."'</input>";
+      <input style='display:inline-block;background:rgb(255,255,255);padding:5px;border:none;width:350px;' id='cpt' data-c1 = '".$ww['idcapitulo']."' contenteditable value='".$ww['nombre']."'</input>";
     }
+    echo "<a href='examen.php?idcapitulo=".$ww['idcapitulo']."&cap=".$i."' style='float:right;text-align:center;width:100px;border-radius:3px;background:rgb(20,7,20);border:none;cursor:pointer;text-decoration:none;color:white;padding:3px;'>Examen ".($i)."</a>";
     echo "<button id='".$i.$i.$i.$i.$i.$i.$i.$i."w' style='border:none;padding:5px;background:rgb(50,100,50);border-radius:5px;text-align:left;color:rgb(255,255,255);cursor:pointer;'>Capitulo ".$i.": ".$ww['nombre']." <span class='icon-ff'></span></button>";
   
     echo "<div style='display:;' id='".$i.$i.$i.$i.$i.$i.$i.$i."z'>";
@@ -150,7 +150,7 @@ button.onclick = function() {
   </script>
         <?php
     if($w['tipo']=='docente'){  
-      echo "<textarea style='background:rgb(200,255,250);border-radius:5px;margin:3px;padding:5px;cursor:pointer' id='cc1' data-c1 = '".$ww['idcapitulo']."' contenteditable>".$ww['descripcion']."</textarea>";
+      echo "<textarea style='background:rgb(200,155,100);color:black;border-radius:5px;padding:5px;cursor:pointer' id='cc1' data-c1 = '".$ww['idcapitulo']."' contenteditable>".$ww['descripcion']."</textarea>";
     }
     echo "<div style='background:rgb(200,255,250);border-radius:5px;margin:3px;padding:5px'>".$ww['descripcion']."</div>";
     
@@ -164,10 +164,12 @@ button.onclick = function() {
       if($nw1>0){
   $j=1;
   do{
+    echo "<article style='margin:10px 0px 10px;width:100%;border-radius:10px;padding:3px'>";                                                                                                                             //ww      
     if($w['tipo']=='docente'){  
       echo "<button style='border:none;border-radius:5px;padding:5px;;cursor:pointer;background:rgb(200,25,20);' id='deleteww' data-idw='".$ww1['idseccion']."'><span class='fa fa-trash'></span></button>";
+
       echo "<button id='".$ww1['idseccion']."7' style='margin-left:35px;border:none;padding:5px;background:rgb(110,100,100);margin:1px;border-radius:5px; text-align:left;color:rgb(255,255,255);cursor:pointer;'>Sección ".$j.":
-      <div style='display:inline-block;background:rgb(10,100,80);color:white;;padding:5px;border-radius:5px;' id='wsec' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['nombre']."</div></button><br>";
+      <div style='display:inline-block;background:rgb(10,100,80);color:white;;padding:5px;border-radius:5px;' id='wsec' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['nombre']."</div></button>";
     }
     echo "<button id='".$ww1['idseccion']."7' style='margin-left:35px;border:none;padding:5px;background:rgb(110,100,100);margin:1px;border-radius:5px; text-align:left;color:rgb(255,255,255);cursor:pointer;'>Sección ".$j.": ".$ww1['nombre']."
 <span class='icon-ff'></span></button><br>";
@@ -211,23 +213,23 @@ function setIframeHeight(id) {
   }
 </script>
         <?php
-         echo "<a style='cursor: pointer;;text-decoration: none;color:white;' href='secciones.php?clavew=".$ww['idcapitulo']."&clave=".$_SESSION['clave']."'>Agregar seccion".$a['idcapitulo']."</a>" ;
+//         echo "<a style='cursor: pointer;;text-decoration: none;color:white;' href='secciones.php?clavew=".$ww['idcapitulo']."&clave=".$_SESSION['clave']."'>Agregar seccion".$a['idcapitulo']."</a>" ;
          if($w['tipo']=='docente'){  
-           echo "<textarea style='margin:auto;width:97%;background:rgb(200,250,255);padding:5px' id='wtexto' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['texto']."</textarea>";
+           echo "<textarea style='margin:auto;width:100%;background:rgb(20,70,25);color:white;padding:5px' id='wtexto' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['texto']."</textarea>";
     }
          echo "<div style='margin:auto;width:99%;background:rgb(200,70,250);padding:5px;border-radius:5px;'>".$ww1['texto']."</div>";
-echo "<div style='margin:auto;width:200px;background:rgb(200,0,5);padding:5px;text-align:center;border-radius:3px;'>Tareas</div>";
+         echo "<div style='margin:auto;width:200px;background:rgb(200,0,5);padding:5px;text-align:center;border-radius:3px;'>Tarea</div>";
 if($w['tipo']=='docente'){  
-  echo "<textarea style='margin:auto;width:90%;background:rgb(255,25,255);padding:5px;' id='sec_tarea' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['tarea']."</textarea>";
+  echo "<textarea style='margin:auto;width:100%;background:rgb(25,25,255);color:white;padding:5px;' id='sec_tarea' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['tarea']."</textarea>";
 }
 echo "<div style='margin:auto;width:99%;background:rgb(255,255,255);padding:5px;border-radius:5px;'>".$ww1['tarea']."</div>";
 echo "<div style='margin:auto;width:90%;background:rgb(100,100,200);margin-bottom:5px;padding:5px;'>";
-    $not=mysqli_query($link,"SELECT * FROM tareas WHERE usuario ='".$_SESSION['user']."' AND idplan ='".$ww1['idseccion']."'");   
-        $notw=mysqli_fetch_assoc($not);
-        $nnot=mysqli_num_rows($not);
-        
-        if($notw['evaluacion']!=""){
-          echo "Calificación: ".$notw['evaluacion'];
+$not=mysqli_query($link,"SELECT * FROM tareas WHERE usuario ='".$_SESSION['user']."' AND idplan ='".$ww1['idseccion']."'");   
+$notw=mysqli_fetch_assoc($not);
+$nnot=mysqli_num_rows($not);
+
+if($notw['evaluacion']!=""){
+  echo "Calificación: ".$notw['evaluacion'];
         }elseif($nnot>0){ 
           echo "Tarea aún no evaluada - ";
           echo "<a style='text-decoration:none;color:rgb(255,100,100);' href='sesion.php?claveww=".$ww1['idseccion']."'>Modificar</a>";
@@ -239,16 +241,16 @@ echo "<div style='margin:auto;width:90%;background:rgb(100,100,200);margin-botto
         
         echo "</div>";
         echo "</div>";
+        echo "</article>";                                                                                                                    //ww     
         
         //     echo "<div style='margin:auto;width:80%;background:rgb(10,100,100)'>" .$ww1['idseccion']. "</div>";
         $j++;
         
       }while($ww1=mysqli_fetch_assoc($conw1));  
-      
+
     }else{
       echo "<tr><td> No hay secciones creadas</td></tr>";
     }
-    echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='examen.php?idcapitulo=".$ww['idcapitulo']."'><div style='margin:auto;width:200px;background:rgb(200,100,200);margin-bottom:5px;padding:5px;'>Examen ".($i-1)."</div></a>";
     if($w['tipo']=='docente'){  
     echo "<div ><button style='background:rgb(22,10,110);color:white;border:none;border-radius:5px;padding:7px;' id='addsecciones' data-c1 = '".$ww['idcapitulo']."'>Agregar sección</button></div>";
   }
@@ -281,10 +283,8 @@ echo "<div style='display:block;margin:auto;width:90%;background:rgb(255,225,255
   echo "<br><div style='text-align:center;'>Adicione su tarea del curso</div>";
 echo "<textarea style='display:block;margin:auto;width:90%;background:rgb(255,225,255);padding:5px;' id='sec_tarea' data-c1 = '".$clasew['tarea']."' contenteditable>".$clasew['tarea']."</textarea>";
 
-    echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='examen.php'><div style='margin:auto;width:200px;background:rgb(00,100,200);margin-bottom:5px;padding:5px;'>Examen general</div></a>";
+    echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='examen.php'><div style='margin:5px auto;border-radius:5px;width:200px;background:rgb(255,10,70);margin-bottom:5px;padding:5px;text-align:center;'>Examen general</div></a>";
 
 //<li>  <a href="examen.php"><span class="fa fa-users icon-menu"></span>Examen y tarea</a></li>
 //}
 ?>
-
-</article>

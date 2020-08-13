@@ -157,6 +157,29 @@ actualizar_datosww(id, x1,"tarea")
 })
 
 
+//archivos insert.
+$(document).on("change", "#imagew", function() {
+    var data = new FormData();
+    var claves="<?php echo $_SESSION['clave']?>";
+    var user="<?php echo $_SESSION['user']?>";
+    data.append('file', $('#imagew')[0].files[0]);
+    data.append('claves',claves);
+    data.append('user',user);
+  //  alert(data);
+
+$.ajax({
+        type: 'post',
+        url: "datos_capitulos.php",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (data) {
+        obtener_capitulos();
+//        alert(data);
+        }
+    });
+});
+
 //INSERTAR archivos secciones
 $(document).on("click", "#send", function(){
 var claves="<?php echo $_SESSION['clave']?>";
@@ -172,6 +195,7 @@ obtener_capitulos();
 //   alert(data);
 }})})
 
+//Agregar sección
 $(document).on("click", "#addsecciones", function(){
 var claves="<?php echo $_SESSION['clave']?>";
 var id=$(this).data("c1");
@@ -223,29 +247,6 @@ obtener_capitulos();
 };
 })
 
-
-//archivos insert.
-$(document).on("change", "#imagew", function() {
-    var data = new FormData();
-    var claves="<?php echo $_SESSION['clave']?>";
-    var user="<?php echo $_SESSION['user']?>";
-    data.append('file', $('#imagew')[0].files[0]);
-    data.append('claves',claves);
-    data.append('user',user);
-  //  alert(data);
-
-$.ajax({
-        type: 'post',
-        url: "datos_capitulos.php",
-        processData: false,
-        contentType: false,
-        data: data,
-        success: function (data) {
-        obtener_capitulos();
-        alert(data);
-        }
-    });
-});
 
 
 //ELIMINAR archivos

@@ -44,7 +44,20 @@ $ww=mysqli_fetch_assoc($conw);
 	}
 
 $_SESSION['idcapitulo']=$_GET['idcapitulo'];
+
 $_SESSION['clavew']= $ww['idpregunta'];
+
+
+
+  if(!isset($_GET['cap'])){
+	  $_GET['cap'] = 'cpt';
+	}
+
+$_SESSION['cap']=$_GET['cap'];
+
+
+
+
 
 if(isset($_REQUEST['enviar'])){
   $texto=$_REQUEST['respuesta'];

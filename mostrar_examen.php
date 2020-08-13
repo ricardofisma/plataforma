@@ -13,7 +13,7 @@ if(isset($_REQUEST['cerrar'])){
 }
 
 
-echo $_SESSION['idcapitulo'];
+//echo $_SESSION['idcapitulo'];
 
 
 $conw=mysqli_query($link,"SELECT * FROM examen WHERE clavecurso='".$_SESSION['clave']."' AND idcapitulo='".$_SESSION['idcapitulo']."'");
@@ -23,9 +23,15 @@ $ww=mysqli_fetch_assoc($conw);
 $user=mysqli_query($link,"SELECT * FROM usuario WHERE idusuario='".$_SESSION['user']."'")     ;
 $w=mysqli_fetch_assoc($user);
 
-echo "<article style='background:rgb(0,150,150);'>";
+echo "<article style='background:rgb(0,150,150)'>";
 
- echo "<h1 style='margin:5px auto;width:90%;color:rgb(255,255,255);text-align:center;background:rgb(10,0,50);'>Examen</h1>";
+ echo "<h1 style='margin:5px auto;width:90%;color:rgb(255,255,255);text-align:center;background:rgb(10,0,50);padding:5px'>";
+if($_SESSION['cap']=='cpt'){
+echo "Examen general del curso";
+}else{
+echo "Examen del capítulo ".$_SESSION['cap'];
+}
+echo  "</h1>";
 
 if($nw>0){
   $i=1;
@@ -33,12 +39,13 @@ if($nw>0){
 do{
   echo "<div style='background:rgb(50,70,70);border-radius:5px;margin-bottom:20px;padding:5px;color:white;'>";
 if($w['tipo']=='docente'){
-echo "<div >";
-echo "<button style='border:none;border-radius:5px;padding:5px;;cursor:pointer' id='delete' data-id='".$ww['idpregunta']."'><span class='fa fa-trash'></span></button>";
-echo "</div>";
 
-echo "<div style='color:rgb(205,100,100);font-size:20px;display:inline-block;margin-right:5px;'>Pregunta ".$i." -</div><div style='display:inline-block;cursor:pointer;'><span id='cc2' data-c2='".$ww['idpregunta']."' data-idcapitulo='".$ww['idcapitulo']."' contenteditable>".$ww['calificativo']."</span>   Puntos</div>";
-echo "<div style='background:rgb(0,30,30);border-radius:5px;margin:3px;padding:5px;cursor:pointer' id='cc1' data-c1='".$ww['idpregunta']."' contenteditable>".$ww['pregunta']."</div>";
+  echo "<button style='border:none;border-radius:5px;padding:5px;;cursor:pointer;display:inline-block;margin-right:5px;' id='delete' data-id='".$ww['idpregunta']."'><span class='fa fa-trash'></span></button>";
+
+echo "<div style='color:rgb(205,100,100);font-size:20px;display:inline-block;margin-right:5px'>Pregunta ".$i." -
+<div style='display:inline-block;cursor:pointer;'><span id='cc2' data-c2='".$ww['idpregunta']."' data-idcapitulo='".$ww['idcapitulo']."' contenteditable>".$ww['calificativo']."</span>   Puntos
+</div></div>";
+echo "<div style='background:rgb(0,30,30);border-radius:5px;padding:5px;cursor:pointer' id='cc1' data-c1='".$ww['idpregunta']."' contenteditable>".$ww['pregunta']."</div>";
 
 echo "<div id='cc3' data-c3='".$ww['idpregunta']."' style='color:rgb(205,100,0);'>".$ww['tipo']."</div>";
 
@@ -47,8 +54,8 @@ echo" <button style='background:rgb(255,210,210);border:none;border-radius:5px;p
 echo "<button style='background:rgb(255,210,210);border:none;border-radius:5px;padding:5px;;cursor:pointer;margin:5px' id='alt' data-alternativa='".$ww['idpregunta']."'>alternativa</button>";
 echo "</div>";
 }else{
-echo "<div style='color:rgb(205,100,100);font-size:20px;display:inline-block;margin-right:5px;'>Pregunta ".$i." -</div><div style='display:inline-block;cursor:pointer;'><span id='cc2' data-c2='".$ww['idpregunta']."' contenteditable>".$ww['calificativo']."</span>   Puntos</div>";
-echo "<div style='background:rgb(0,30,30);border-radius:5px;margin:3px;padding:5px' id='cc1' data-c1='".$ww['idpregunta']."'>".$ww['pregunta']."</div>";
+echo "<div style='color:rgb(205,100,100);font-size:20px;display:inline-block;margin-right:5px;padding:3px'>Pregunta ".$i." -</div><div style='display:inline-block;'><span   >".$ww['calificativo']."</span>   Puntos</div>";
+echo "<div style='background:rgb(0,30,30);border-radius:5px;padding:5px'>".$ww['pregunta']."</div>";
   
 }
 $i++;
@@ -70,28 +77,28 @@ if($ww['tipo']=='alternativa'){
           echo "<div style='width:100%'>";
      echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>";
      echo "<button style='background:rgb(5,10,50);color:white;border:none;border-radius:5px;padding:5px;cursor:pointer' id='deletealtr' data-idaltr='".$ww1['idalternativa']."'> <span class='fa fa-trash'></span></button>";
-     echo "<div style='background:rgb(30,20,50);color:white;border:none;border-radius:5px;padding:5px;margin:3px;width:95%;display:inline-block;cursor:pointer' id='alternativaww' data-altww='".$ww1['idalternativa']."' data-altw='".$ww1['idalternativa']."' contenteditable>".$ww1['alternativa']."</div>";
+     echo "<div style='background:rgb(30,200,50);color:white;border:none;border-radius:5px;padding:5px;width:95%;margin:3px;display:inline-block;cursor:pointer;color:black;' id='alternativaww' data-altww='".$ww1['idalternativa']."' data-altw='".$ww1['idalternativa']."' contenteditable>".$ww1['alternativa']."</div>";
      echo "</div>";
     }else{
       
       echo "<div style='width:100%'>";
       echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
     echo "<button style='background:rgb(5,10,50);color:white;border:none;border-radius:5px;padding:5px;;cursor:pointer' id='deletealtr' data-idaltr='".$ww1['idalternativa']."'><span class='fa fa-trash'></span></button>";
-    echo "<div style='background:rgb(25,10,100);border:none;border-radius:5px;padding:5px;margin:2px;width:95%;display:inline-block;cursor:pointer' id='alternativa' data-alt='".$ww1['idalternativa']."' data-altw='".$ww1['clavepregunta']."'>".$ww1['alternativa']."</div>";
+    echo "<div style='background:rgb(25,100,100);border:none;border-radius:5px;padding:5px;margin:2px;width:95%;display:inline-block;cursor:pointer' id='alternativa' data-alt='".$ww1['idalternativa']."' data-altw='".$ww1['clavepregunta']."'>".$ww1['alternativa']."</div>";
     echo "</div>";
     
   }
 
 }else{
-  
+
   $conwzz=mysqli_query($link,"SELECT * FROM respuestas WHERE idalternativa='".$ww1['idalternativa']."' AND usuario='".$_SESSION['user']."'");
   $wwz=mysqli_fetch_assoc($conwzz);
   $nwz=mysqli_num_rows($conwzz);
   if($nwz==0){
   echo "<div style='width:100%'>";
-    echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
-    echo "<div style='background:rgb(25,10,150);border:none;border-radius:5px;padding:5px;margin:2px;width:95%;display:inline-block;cursor:pointer' id='addresp' data-altresp='".$ww1['idalternativa']."' data-altwresp='".$ww1['clavepregunta']."'>
-    ".$ww1['alternativa']."".$ww1['idalternativa']."  ".$ww1['clavepregunta']."".$wwz['respuesta']." ".$wwz['idalternativa']."</div>";
+  //echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
+    echo "<div style='background:rgb(25,100,150);border-radius:5px;padding:5px;margin:2px 0px 2px;width:100%;display:inline-block;cursor:pointer' id='addresp' data-altresp='".$ww1['idalternativa']."' data-altwresp='".$ww1['clavepregunta']."'>
+    ".$j. ". ".$ww1['alternativa']."</div>";
     echo "</div>";
   }else{
 
@@ -99,15 +106,15 @@ if($ww['tipo']=='alternativa'){
 
     if($wwz['respuesta']=='correcta'){
       echo "<div style='width:100%'>";
-      echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
-    echo "<div style='background:rgb(25,10,50);border:none;border-radius:5px;padding:5px;margin:2px;width:95%;display:inline-block;cursor:pointer' id='addresp' data-altresp='".$ww1['idalternativa']."' data-altwresp='".$ww1['clavepregunta']."'>
-    ".$ww1['alternativa']."".$ww1['idalternativa']."  ".$ww1['clavepregunta']."".$wwz['respuesta']." ".$wwz['idalternativa']."</div>";
+    //  echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
+    echo "<div style='background:rgb(255,70,90);border-radius:5px;margin:2px 0px 2px;padding:5px;width:100%;display:inline-block;cursor:pointer; color:white;' id='addresp' data-altresp='".$ww1['idalternativa']."' data-altwresp='".$ww1['clavepregunta']."'>
+    ".$j. ".  ".$ww1['alternativa']."</div>";
     echo "</div>";
   }else{
     echo "<div style='width:100%'>";
-    echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
-    echo "<div style='background:rgb(25,10,100);border:none;border-radius:5px;padding:5px;margin:2px;width:95%;display:inline-block;cursor:pointer' id='addresp' data-altresp='".$ww1['idalternativa']."' data-altwresp='".$ww1['clavepregunta']."'>
-  ".$ww1['alternativa']."".$ww1['idalternativa']."  ".$ww1['clavepregunta']."".$wwz['respuesta']." ".$wwz['idalternativa']."</div>";
+ //    echo "<div style=';display:inline-block;width:20px;'>".$j. ".  </div>"; 
+    echo "<div style='background:rgb(255,180,75);border-radius:5px;padding:5px;margin:2px 0px 2px;width:100%;display:inline-block;cursor:pointer; color:black;' id='addresp' data-altresp='".$ww1['idalternativa']."' data-altwresp='".$ww1['clavepregunta']."'>
+  ".$j. ".  ".$ww1['alternativa']." </div>";
   echo "</div>";   
 }
 
@@ -173,7 +180,7 @@ echo "</div>";
 }
 if($w['tipo']=='docente'){
 
-  echo "<div ><button style='background:rgb(22,10,110);color:white;border:none;border-radius:5px;padding:7px;' id='add' data-idcapitulo='".$_SESSION['idcapitulo']."'>Agregar pregunta</button></div>";
+  echo "<button style='background:rgb(22,10,110);color:white;border:none;border-radius:5px;padding:7px;margin:auto;display:block;' id='add' data-idcapitulo='".$_SESSION['idcapitulo']."'>Agregar pregunta</button>";
   $fila=mysqli_query($link,"SELECT SUM(calificativo) AS suma FROM  examen WHERE clavecurso='".$_SESSION['clave']."' AND idcapitulo='".$_SESSION['idcapitulo']."'");
   $filaw = mysqli_fetch_assoc($fila); 
   $suma=$filaw['suma'];
@@ -193,10 +200,10 @@ if($w['tipo']=='docente'){
   $sumw = $roww['sumw'];
   $ggg=$sumw+$sum;
   //echo $_SESSION['clave'];
-  echo "Escritas: ".$sumw."--";
-  echo "Alternativas: ".$sum;
+  echo "Alternativas: ".$sum."--";
+  echo "Escritas: ".$sumw;
 
-  echo "<div style='margin:5px auto;width:90%;color:rgb(255,255,255);text-align:center;background:rgb(100,200,100);'><p>Total ".$ggg." puntos </p></div>";
+  echo "<div style='margin:5px auto;width:90%;color:black;text-align:center;background:rgb(100,200,100);'><p>Total ".$ggg." puntos </p></div>";
 
 }
 echo "</article>";
