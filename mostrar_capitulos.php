@@ -133,7 +133,7 @@ if($nw>0){
     }
     echo "<button id='".$i.$i.$i.$i.$i.$i.$i.$i."w' style='border:none;padding:5px;background:rgb(50,100,50);border-radius:5px;text-align:left;color:rgb(255,255,255);cursor:pointer;'>Capitulo ".$i.": ".$ww['nombre']." <span class='icon-ff'></span></button>";
   
-    echo "<div style='display:none;' id='".$i.$i.$i.$i.$i.$i.$i.$i."z'>";
+    echo "<div style='display:;' id='".$i.$i.$i.$i.$i.$i.$i.$i."z'>";
     
     ?>     
 <script>
