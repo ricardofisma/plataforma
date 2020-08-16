@@ -323,12 +323,12 @@ $nescr=mysqli_num_rows($escrito);
 
 if ($nescr>0) {
 do{
-    echo "<div style='background:rgb(255,255,225); border-radius:0.2em;;margin:5px; padding:5px;'>".$escritow['respuesta']."".$escritow['clavepregunta']."</div>";
+    echo "<div style='background:rgb(255,255,225); border-radius:0.2em;;margin:5px; padding:5px;'>".$escritow['respuesta']."</div>";
     
     $max=mysqli_query($link,"SELECT * FROM  examen WHERE  tipo = 'escrita' AND idpregunta='".$escritow['clavepregunta']."'");
     $maxx = mysqli_fetch_assoc($max); 
     
-    echo "<div style='display:inline-block;cursor:pointer;'><span id='fff' data-fffff='".$escritow['idrespuestas']."' data-user='".$escritow['usuario']."' contenteditable>".$escritow['escritanota']."</span>   (Puntos max: ".$maxx['calificativo'].")</div><br>";
+    echo "<div style='display:inline-block;background:rgb(0,10,90);border-radius:5px;color:white;padding:3px;'>".$escritow['escritanota']." (Puntos max: ".$maxx['calificativo'].")</div>";
 }while($escritow = mysqli_fetch_assoc($escrito));
 }else{ 
     echo "<div style='color:rgb(200,200,200);'>Este examen no contiene preguntas escritas</div>";
@@ -345,10 +345,9 @@ $roww = mysqli_fetch_assoc($rww);
 $sumw = $roww['sumw'];
 $ggg=$sumw+$sum;
 
-echo "Escrito: ".$sumw."--";
-echo "Alternativas: ".$sum;
+echo "<br><span style='margin:5px auto;width:90%;color:rgb(255,255,25);'>Escrito: ".$sumw." -- Alternativas: ".$sum."</span>";
 
-echo "<div style='margin:5px auto;width:90%;color:rgb(255,255,255);text-align:center;background:rgb(100,100,100);'><p>Total ".$ggg." puntos </p></div>";
+echo "<div style='margin:5px auto;width:90%;color:rgb(255,150,200);text-align:center;background:rgb(100,100,100);'><p>Total ".$ggg." puntos </p></div>";
 /////////curso
 
 
@@ -372,8 +371,7 @@ if ($nescr>0) {
         
         $max=mysqli_query($link,"SELECT * FROM  examen WHERE  tipo = 'escrita' AND idpregunta='".$escritow['clavepregunta']."'");
         $maxx = mysqli_fetch_assoc($max); 
-        
-        echo "<div style='display:inline-block'><div style='color:rgb(200,200,200);background:rgb(0,10,90);width:30px;display:inline-block;border-radius:5px;'>".$escritow['escritanota']."</div>   (Puntos max: ".$maxx['calificativo'].")</div>";
+            echo "<div style='display:inline-block;background:rgb(0,10,90);border-radius:5px;color:white;padding:3px;'>".$escritow['escritanota']." (Puntos max: ".$maxx['calificativo'].")</div>";
 //        echo "</div>";
     }while($escritow = mysqli_fetch_assoc($escrito));
     
@@ -393,10 +391,9 @@ $roww = mysqli_fetch_assoc($rww);
 $sumw = $roww['sumw'];
 $ggg=$sumw+$sum;
 
-echo "<br>Escrito: ".$sumw."--";
-echo "Alternativas: ".$sum;
+echo "<br><span style='margin:5px auto;width:90%;color:rgb(255,255,25);'>Escrito: ".$sumw." -- Alternativas: ".$sum."</span>";
 
-echo "<div style='margin:5px auto;width:90%;color:rgb(255,255,255);text-align:center;background:rgb(100,100,100);'><p>Total ".$ggg." puntos </p></div>";
+echo "<div style='margin:5px auto;width:90%;color:rgb(255,150,200);text-align:center;background:rgb(100,100,100);'><p>Total ".$ggg." puntos </p></div>";
 
 ////////////////////////////////////////////////////////////
 
