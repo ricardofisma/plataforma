@@ -237,7 +237,7 @@ if($notw['evaluacion']!=""){
           echo "Tarea no entregada - ";
           echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sesion.php?claveww=".$ww1['idseccion']."'>Entregar</a>";
         }
-        echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='calificaciones.php'> - Resumen de ".$ww1['idseccion']."</a>";
+        echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='calificaciones.php'> - Resumen del  curso</a>";
         
         echo "</div>";
         echo "</div>";

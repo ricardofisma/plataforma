@@ -15,7 +15,7 @@ if(isset($_REQUEST['cerrar'])){
 
 $_SESSION['claveww']=$_GET['claveww'];
 
-echo $_SESSION['clavew'];
+//echo $_SESSION['clavew'];
 
 
 if(isset($_REQUEST['www'])){
@@ -28,8 +28,9 @@ $t=mysqli_real_escape_string($link, $t);
 $id=$_SESSION['claveww'];
 mysqli_query($link,"INSERT INTO tareas VALUES(NULL, '$t','$user','$clave',NULL,'$na', NULL, '$id', '$clavew')");
 $idtarea=mysqli_insert_id($link);
-echo $idtarea;
+//echo $idtarea;
 copy($_FILES['archivo']['tmp_name'],"archivostarea/".$_SESSION['claveww'].$na);
+echo $_SERVER["REQUEST_URI"];
 }
 
 
@@ -41,16 +42,6 @@ $a=mysqli_fetch_assoc($con);
 
 <?php include('first.php');?><?php include('margin.php'); ?>
 
-
-<article>
-
-<?php
-echo "<div><h1>" .$a['nombre']. "</h1></div>";
-echo "<p>".$a['texto']."</p>";
-
-//echo "<p>".$a['tarea']."</p>";
-?>
-</article>
 
 
 
@@ -70,24 +61,19 @@ if(isset($_REQUEST['clavewww'])){
     mysqli_query($link,"DELETE FROM tareas WHERE idplan=".$ww=$arraytareas['idplan']);
 }
 
-//echo $_SESSION['claveww'];
-
-
-//echo "<div>" .$a['texto']. "</div>";
-echo "<h1>Tarea</h1>";
-echo "<p>".$a['tarea']."</p>";
+echo "<h1 style='display:block;margin:auto;background:rgb(100,100,100);text-align: center'>Tarea</h1><br>";
+echo "<div style='display:block;margin:auto;background:rgb(10,10,100);color:white;text-align: center'>".$a['tarea']."</div><br>";
 
 if($w['tipo']=='estudiante'){
+
 if($nts==0){
-//echo "<h3>".$a['nombre']."</h3>";
-//echo "<p>".$a['texto']."</p>";
-//echo "<p>".$a['tarea']."</p>";
+
 ?>
 
 
 
 
-<h1>Entregar tarea</h1>
+<h1 style='display:block;margin:auto;background:rgb(100,100,100);text-align: center'>Entregar tarea</h1>
 
 
 
@@ -101,6 +87,8 @@ if($nts==0){
 
     </form>
 
+
+
 <script>
 function fileUpload() {
     $("#myFile").click();
@@ -112,12 +100,12 @@ function fileUpload() {
 <?php
 }else{
     
-    echo "<h1> Tarea entregada</h1>";
+    echo "<h1 style='display:block;margin:auto;background:rgb(100,100,100);text-align: center;font-size:0.8em;'> Tarea entregada</h1>";
     ?>
 
-<div  style= "display:flex; width:100%;">
+<div  style= "display:flex; width:100%;flex-wrap:wrap;align-items: center;  justify-content: center;">
 <?php
-echo "<div class='imagen' style='float:left;'>";
+echo "<div class='imagen' style='display:block;margin:auto;background:rgb(100,100,10);text-align: center'>";
 echo "<div style='text-align: center;width:370px;border:0px solid;;border-radius:1px;position:relative;margin:5px;'>";
 echo "<div title='Edite su perfil' style='width:250px;height:250px;overflow: hidden;border-radius:1px;position: relative;object-fit:cover;margin:5px auto;'><a style='cursor: pointer;' href='javascript:abrir()'><img style='cursor: pointer;' src= 'archivostarea/".$_SESSION['claveww'].$arraytareas['archivo']."' onerror=this.src='foto.png'></a></div>";
 echo "<div style='margin:auto;width:97%; margin-bottom:0px;'><p style='border-radius:5px 5px 0px 0px;background:rgba(255,255,255,0.95);'>" .$arraytareas['archivo']. "</p></div>";
@@ -128,14 +116,18 @@ echo "</div>";
 <?php
 
 //    echo $arraytareas['idplan'];
+echo "<div class='imagen' style='display:block;margin:auto;background:rgb(100,10,100);text-align: center'>";
 echo "<p>".$arraytareas['texto']."</p>";
-if($arraytareas['evaluacion']==""){echo "<br><a style=' color: rgb(70,0,70); margin-right: 10px; font-size: 20px;' href='updatetarea.php?claveww=".$_SESSION['claveww']."'><i class='fa fa-edit'></i></a>";}
-if($arraytareas['evaluacion']==""){echo "<a style=' color: rgb(70,0,70); font-size: 20px;' href=\"javascript:preguntar('".$_SESSION['claveww']."')\"><i class='fa fa-trash'></i></a>";}
-echo "<a style=' color: rgb(70,0,70); margin: 10px; font-size: 20px;' href='archivostarea/".$_SESSION['claveww'].$arraytareas['archivo']."'><i class='fa fa-download'></i></a>";
- 
+
+if($arraytareas['evaluacion']==""){echo "<br><a style=' color: rgb(70,255,250); margin-right: 10px;' href='updatetarea.php?claveww=".$_SESSION['claveww']."'><i class='fa fa-edit'></i></a>";}
+if($arraytareas['evaluacion']==""){echo "<a style=' color: rgb(70,255,250)' href=\"javascript:preguntar('".$_SESSION['claveww']."')\"><i class='fa fa-trash'></i></a>";}
+echo "<a style=' color: rgb(70,255,200); margin: 10px;' href='archivostarea/".$_SESSION['claveww'].$arraytareas['archivo']."'><i class='fa fa-download'></i></a>";
+
+
 if($arraytareas['evaluacion']!=""){echo "[ Evaluacion: <span>".$arraytareas['evaluacion']."</span> ]";}
 echo "[ Fecha de entrega: ".$arraytareas['fecha']." ] <br>";
-if($arraytareas['evaluacion']==""){echo "<h1 style=' color: rgb(70,0,70); margin-right: 10px; font-size: 18px;'>Tarea aun no evaluada</h1>";}
+if($arraytareas['evaluacion']==""){echo "<h1 style='display:block;margin:auto;background:rgb(100,100,100);text-align: center; font-size: 18px;'>Tarea aun no evaluada</h1>";}
+echo "<div>";
 
 //if($arraytareas['evaluacion']==""){echo "<td><a  type='submit' href='sesion.php?claveww=".$_SESSION['claveww']."' name='wwwz'> [ Eliminar ]</a>";}
 //if($arraytareas['evaluacion']==""){echo "<td><a href='sesion.php?claveww=".$_SESSION['claveww']."'>  Modificar </a>";}
@@ -146,11 +138,6 @@ if($arraytareas['evaluacion']==""){echo "<h1 style=' color: rgb(70,0,70); margin
 
 
 <?php
-//echo $_SESSION['claveww']."<br>";
-//echo $_SESSION['user']."<br>";
-//echo $_SESSION['clave']."<br>";
-
-
 if(isset($_REQUEST['notas'])){
 $nota=$_REQUEST['nota'];
 mysqli_query($link,"UPDATE  tareas SET evaluacion='$nota' WHERE usuario='".$_SESSION['user']."' AND idplan='".$_SESSION['claveww']."'");
@@ -253,6 +240,16 @@ window.location.href="deletetarea.php?claveww="+valor;
 </article>
 
 
+
+<article>
+
+<?php
+echo "<div style='display:block;margin:auto;background:rgb(100,100,100);text-align: center'><h1>" .$a['nombre']. "</h1></div>";
+echo "<p>".$a['texto']."</p>";
+
+//echo "<p>".$a['tarea']."</p>";
+?>
+</article>
 
 
 

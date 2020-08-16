@@ -130,8 +130,7 @@ url:"sendpreguntas.php",
 method:"post",  
 data:{w1:pregunta,w2:calif,clavv:clave,ww:tipo,idcapitulo:idcapitulo},
 success:function(data){
-obtener_datos();
-alert(data);
+obtener_datos();//alert(data);
 }
 })
 })
@@ -150,8 +149,7 @@ url:"sendrespuestas.php",
 method:"post",
 data:{clavecurso:clave,clavepreg:clavepregunta,clavepregw:clavepreguntaw,userr:user},
 success:function(data){
-obtener_datos();
-//alert(data);
+obtener_datos();//alert(data);
 }
 })
 })
@@ -160,19 +158,20 @@ obtener_datos();
 $(document).on("blur", "#ccc", function(){
 var clave="<?php echo $_SESSION['clave']?>";
 var clavepregunta=$(this).data("cc");
+var idcpt=$(this).data("idcpt");
 var user="<?php echo $_SESSION['user']?>";
 var x3=$(this).text();
 ////alert(nombrew);
 //alert(clavepregunta);
 //    alert(clave);
 //    alert(x3);
+//    alert(idcpt);
 $.ajax({
 url:"sendrespuestas.php",
 method:"post",
-data:{clavecursow:clave,clavepregw:clavepregunta,x3w:x3,userrw:user},
+data:{clavecursow:clave,clavepregw:clavepregunta,x3w:x3,userrw:user,idcpt:idcpt},
 success:function(data){
-obtener_datos();
-//   alert(data);
+obtener_datos();//   alert(data);
 }
 })
 })
@@ -212,14 +211,13 @@ actualizar_datos(id, x2,"calificativo")
 ////alert(nombrew);
 //actualizar_datos(id, x3,"tipo")
 //})
-
-$(document).on("blur", "#ccc", function(){
+*/*$(document).on("blur", "#ccc", function(){
 var id=$(this).data("cc");
 var xx=$(this).html();
 //alert(nombrew);
 actualizar_datos(id, xx,"rptaescrita")
 })
-
+*/
 $(document).on("click", "#alt", function(){
 var id=$(this).data("alternativa");
 var zz="alternativa";
@@ -261,18 +259,17 @@ actualizar_pregunta(id, idw, zw,"respuesta")
 $(document).on("click", "#altr", function(){
 var clavecurso="<?php echo $_SESSION['clave']?>";
 var clavepregunta=$(this).data("idpregunta");
+var idcpt=$(this).data("idcpt");
 var alternativa="Editar Alternativa haciendo click aqui";
-var resp="incorrecta";
-//alert(clavepregunta);
+var resp="incorrecta";//alert(idcpt); 
 //alert(clavecurso);
 //alert(alternativa);
 $.ajax({
 url:"sendalternativas.php",
 method:"post",
-data:{clave:clavecurso,clavew:clavepregunta,alterna:alternativa,respta:resp},
+data:{clave:clavecurso,clavew:clavepregunta,alterna:alternativa,respta:resp,idcpt:idcpt},
 success:function(data){
-obtener_datos();
-// alert(data);
+obtener_datos();// alert(data);
 }})})
 
 

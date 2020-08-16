@@ -119,3 +119,13 @@ $conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['cla
 
 
 
+<script>
+	  $(document).on("click","#buttonw-menuw", function () {
+//	alert("www");
+	     $(".navegacion").css({ width: "0%", background: "rgba(0,0,0,.0)" }); // Ocultamos el fonto transparente
+      $("#button-menu").removeClass("fa fa-arrow-left").addClass("fa fa-bars"); // Agregamos el icono del Menu
+      $(".navegacion .submenu").css({ left: "-320px" }); // Ocultamos los submenus
+      $(".navegacion .menu").css({ left: "-320px" }); // Ocultamos el Menu
+	});
+
+</script>

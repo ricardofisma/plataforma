@@ -52,6 +52,24 @@ mostrar_datos();
 })
 
 
+//INSERTAR nota tareas
+$(document).on("blur", "#nota", function(){
+var ids=$(this).data("nota");
+//var clavepregunta=$(this).data("fffff");
+var x3=$(this).text();///
+//alert(ids);
+$.ajax({
+url:"sendrespuestas.php",
+method:"post",
+data:{ids:ids,x3:x3},
+success:function(data){
+mostrar_datos();
+//alert(data);
+}
+})
+})
+
+
 });
 </script>
 

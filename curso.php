@@ -72,8 +72,8 @@ echo "<ul>";
 
 if($ww>0){
   
+  $r=1;
   do{
-    $r=1;
     echo "<li><h1 style='font-weight:300;color:green;font-size:20px'>Capítulo ".$r.": ".$zzw['nombre']."</h1>";
     echo "<ul>";
                 									
