@@ -42,17 +42,16 @@ $ww=mysqli_fetch_assoc($conw);
   if(!isset($_GET['idcapitulo'])){
 	  $_GET['idcapitulo'] = 'cpt';
 	}
-
 $_SESSION['idcapitulo']=$_GET['idcapitulo'];
+
+
 
 $_SESSION['clavew']= $ww['idpregunta'];
 
-
-
   if(!isset($_GET['cap'])){
 	  $_GET['cap'] = 'cpt';
-	}
-
+  }
+  
 $_SESSION['cap']=$_GET['cap'];
 
 
@@ -153,6 +152,7 @@ obtener_datos();//alert(data);
 }
 })
 })
+ 
 
 //INSERTAR y actualizar DATOS respuestas escrita
 $(document).on("blur", "#ccc", function(){
@@ -193,7 +193,7 @@ obtener_datos();
 //ACTUALIZAR CONTINUACION
 $(document).on("blur", "#cc1", function(){
 var id=$(this).data("c1");
-var x1=$(this).html();
+var x1=$(this).text();
 //alert(x1);
 actualizar_datos(id, x1,"pregunta")
 })
@@ -336,7 +336,6 @@ obtener_datos();
 
 });
 </script>
-
 
 <div id ="result"></div>
 

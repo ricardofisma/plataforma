@@ -25,23 +25,21 @@ $nw=mysqli_num_rows($conw);
 $curso1=mysqli_fetch_assoc($conw);
 
 
-?>
+?>  
 
-<article style="background:rgb(70,0,70);">
-
-<div  style= "display:flex; width:100%;border:1px solid;width:90%; margin:auto;">
+<article style="background:rgb(70,200,200);">
+<div  style= "display:flex; width:100%;border:3px solid rgb(255,255,225);width:90%; margin:auto; border-radius: 10px;   display:flex;
+    width:100%;
+    padding:5px;
+    flex-wrap:wrap;
+    align-items: center;
+  justify-content: center;">
 <?php
-//echo "<div>";// style='  width:150px;height:150px;overflow:hidden;border-radius:5px;position:relative;object-fit:cover;margin:auto;'>";
-//echo "<img style='height:155px ;cursor:pointer;border-radius:5px;'  class='image'  id='".$w['idusuario']."' src= 'archivos/".$w['idusuario']."".$w['foto']."' onerror=this.src='curso.png'>";
+echo "<div style=' color:rgb(255,255,255);font-size: 50px;margin :auto;'  title='Edite su perfil' class='www'><a href='editar.php' ><i class='fa fa-cog'></i></a></div>";
+echo "<div title='Edite su perfil' class='wrapper' style='margin: auto;'><a style='cursor: pointer;'><img style='cursor: pointer;'  class='image'  id='".$w['idusuario']."' src= 'archivos/".$w['idusuario']."".$w['foto']."' onerror=this.src='foto.png'></a></div>";
 //echo "</div>";
-echo "<div class='imagen' style='float:left;'>";
-echo "<div class='ww' style='text-align: center;width:370px;border:0px solid;;border-radius:5px;position:relative;margin:5px;'>";
-echo "<div title='Edite su perfil' class='www'><a style=' color: rgb(255,255,255);font-size: 50px;'  href='editar.php' ><i class='fa fa-cog'></i></a></div>";
-echo "<div title='Edite su perfil' class='wrapper' style='margin:5px auto;'><a style='cursor: pointer;'><img style='cursor: pointer;'  class='image'  id='".$w['idusuario']."' src= 'archivos/".$w['idusuario']."".$w['foto']."' onerror=this.src='foto.png'></a></div>";
-echo "<div style='margin:auto;width:80%; margin-bottom:5px;background:rgb(10,100,100);border-radius:0px 0px 5px 5px;color:white;font-size:30px;text-align:center;' id='nombre' data-c1='".$w['idusuario']."' contenteditable><p style='border-radius:0px 0px 5px 5px;padding:5px;'>".$w['nombre']."</p></div>";
-//echo "<div style='margin:auto;width:97%; margin-bottom:0px;'><h1 style='border-radius:5px 5px 0px 0px;background:rgba(255,255,255,0.95);'>" .$w['nombre']. "</h1></div>";
-echo "</div>";
-echo "</div>";
+//echo "</div>";
+echo "<div style='margin:auto;background:rgb(10,100,100);border-radius:7px;color:white;font-size:20px;text-align:center;padding:5px;' id='nombre' data-c1='".$w['idusuario']."' contenteditable>".$w['nombre']."</div>";
 ?>
 </div>
 </article>
@@ -51,7 +49,7 @@ echo "</div>";
 if($w['tipo']=='docente'){
   echo "<article>";
 echo "<a style='text-decoration:none;font-size:20px;' href='index.php'>Edite el landing page</a>";
-echo "<a style='text-decoration:none;font-size:20px;' href='filetransfer/index.html'>www</a>";
+//echo "<a style='text-decoration:none;font-size:20px;' href='filetransfer/index.html'>www</a>";
 echo "</article>";
 }
 ?>
@@ -101,16 +99,16 @@ if($n>0){
     if($nmisclases>0){
       echo "<div style='text-align: center;background:rgb(255,100,100);width:250px;border-radius:10px;position:relative;margin:5px;border:1px solid;'>";
     }else{
-      echo "<div style='text-align: center;background:rgb(255,255,255);width:200px;border-radius:5px;position:relative;margin:5px;'>";
+      echo "<div style='text-align: center;background:rgb(255,255,255);width:200px;border-radius:5px;position:relative;margin:5px;padding:0.2em;'>";
     
     }
     if($w['tipo']=='estudiante'){
     echo "<div style='margin: 0px auto;width:80%;background:rgb(10,100,100);border-radius:0px 0px 5px 5px;color:white;font-size:20px;'>".$curso['nombre']."</div>";
     }
     if($curso['link']=='Link video'){
-      ECHO "<iframe src='https://www.youtube.com/embed/zoGqt6ObPC8' style='align:center;display:block;;margin:5px auto;width:97%;height:100px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>wwwww</iframe>";
+      ECHO "<iframe src='https://www.youtube.com/embed/zoGqt6ObPC8' style='align:center;display:block;width:100%; height:200px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>wwwww</iframe>";
       }else{
-      ECHO "<iframe src='".$curso['link']."' style='align:center;display:block;;margin:5px auto;width:97%;height:200px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>ww</iframe>";
+      ECHO "<iframe src='".$curso['link']."' style='align:center;display:block;width:100%;height:200px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>ww</iframe>";
     }
      //    echo "<iframe style='align:center;display:block;;margin:5px auto;width:97%;height:300px;border-radius:3px;' data='".$curso['link']."'  frameborder = '0' allowfullscreen></iframe>";
         //  echo "<div style='margin:auto;width:80%; margin-bottom:5px;'><p>" .$curso['clave']. "</p></div>";

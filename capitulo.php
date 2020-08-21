@@ -155,7 +155,14 @@ var x1=$(this).val();
 //alert(id);
 actualizar_datosww(id, x1,"tarea")
 })
-
+//ACTUALIZAR fecha
+$(document).on("change", "#time", function(){
+var id=$(this).data("ttt");
+var x1=$(this).val();
+//alert(x1);
+//alert(id);
+actualizar_datosww(id, x1,"time")
+})
 
 //archivos insert.
 $(document).on("change", "#imagew", function() {
@@ -207,9 +214,88 @@ data:{clavews:claves, id:id},
 success:function(data){ 
 obtener_capitulos();
 //   alert(data);
-}})})
+}})
+})
+
+//Agregar inicio tiempo examen
+$(document).on("click", "#empezar", function(){
+  var claves="<?php echo $_SESSION['clave']?>";
+    var user="<?php echo $_SESSION['user']?>";
+var cap=$(this).data("cpt");
+var idw=$(this).data("tiempo");
+var idc=$(this).data("idc");
+//var name=$(this).data("name");
+alert(idw);
+//   alert(idc);
+//   alert(cap);
+//      alert(claves);
+//   alert(user);
+$.ajax({ 
+url:"datos_capitulos.php",
+method:"post",
+data:{clavee:claves,user:user,cap:cap, idw:idw, idc:idc},
+success:function(data){
+obtener_capitulos();
+   alert(data);
+}
+})
+})
 
 
+
+//insert tiempo de examen capitulo
+$(document).on("blur", "#ext", function(){
+var clavef="<?php echo $_SESSION['clave']?>";
+var idc=$(this).data('tt');//alert(clavef);
+var ext=$(this).val();
+//alert(ext);
+//alert(idc);
+$.ajax({
+url:"datos_capitulos.php",
+method:"post",
+data:{clavef:clavef,ext:ext,idc:idc},
+success:function(data){
+obtener_capitulos();
+//alert(data);
+}
+})
+})
+
+//insert tiempo de examen curso
+$(document).on("blur", "#extww", function(){
+var clavw="<?php echo $_SESSION['clave']?>";
+var ext=$(this).val();
+//alert(clavw);
+//alert(ext);
+$.ajax({
+url:"datos_capitulos.php",
+method:"post",
+data:{clavw:clavw,ext:ext},
+success:function(data){
+obtener_capitulos();
+//   alert(data);
+}
+})
+})
+
+
+
+//insert tiempo entrega tarea
+$(document).on("blur", "#extt", function(){
+var claveff="<?php echo $_SESSION['clave']?>";
+var extff=$(this).val();
+//alert(extff);
+//alert(claveff);
+$.ajax({
+url:"datos_capitulos.php",
+method:"post",
+data:{claveff:claveff,extff:extff},
+success:function(data){
+obtener_capitulos();
+//   alert(data);
+}
+})
+})
 
 //ELIMINAR capitulo
 $(document).on("click", "#deletew", function(){

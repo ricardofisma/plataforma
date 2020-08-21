@@ -169,11 +169,11 @@ $a=mysqli_fetch_assoc($con);
 
     <form id="image_form" method="post" enctype="multipart/form-data">
 
-     <p><label>Select Image</label>
+     <p><label>Seleccionar Imagen</label>
      <input type="file" name="image" id="image" /></p><br />
-     <input type="" name="action" id="action" value="insert" />
-     <input type="" name="image_id" id="image_id" /> <!--hidden-->
-     <input type="" name="wimage_id" id="wimage_id" /> <!--hidden-->
+     <input type="hidden" name="action" id="action" value="insert" />
+     <input type="hidden" name="image_id" id="image_id" /> <!--hidden-->
+     <input type="hidden" name="wimage_id" id="wimage_id" /> <!--hidden-->
      <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
       
     </form>
@@ -281,7 +281,7 @@ method:"post",
 data:{id: id, text: texto, column: columna},
 success:function(data){
 obtener_inicio();
-   alert(data);
+//   alert(data);
 }})}
 //ACTUALIZAR nombre
 $(document).on("blur", "#www", function(){
@@ -296,8 +296,8 @@ actualizar_dato(id, x1,"nombre")
 $(document).on("blur", "#cc2", function(){
 var id = $(this).data("c2");
 var x1 = $(this).text();
- alert(x1);
- alert(id);
+// alert(x1);
+// alert(id);
 actualizar_dato(id, x1,"precio")
 })
 //ACTUALIZAR precio
@@ -348,7 +348,7 @@ obtener_inicio();
      processData:false,
      success:function(data)
      {
-      alert(data);
+ //     alert(data);
 obtener_inicio();
       $('#image_form')[0].reset();
       $('#imageModal').modal('hide'); 
@@ -368,7 +368,7 @@ obtener_inicio();
   $('#insert').val("Actualizar");  
   $('#imageModal').modal("show");
  });
-
+ 
  $(document).on('click', '.image', function(){
   $('#image_id').val($(this).attr("id"));
     $('#action').val("image");
@@ -394,13 +394,13 @@ obtener_inicio();
 })
 };
 })
- 
+
 //ELIMINAR CURSO
 $(document).on("click", "#deletecurso", function(){
 if(confirm("Esta seguro de eliminar esta categoria")){
 var idw=$(this).data("c1");
 var idc=$(this).data("cc1");
-   alert(idw);
+//   alert(idw);
 //   alert(idw);
 $.ajax({ 
 url:"datos_inicio.php",
@@ -408,7 +408,7 @@ method:"post",
 data:{deletw:idw, idc:idc},
 success:function(data){
 obtener_inicio();
-alert(data);
+//   alert(data);
 }
 })
 };

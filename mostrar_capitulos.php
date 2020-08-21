@@ -19,6 +19,26 @@ if(isset($_REQUEST['cerrar'])){
 //echo $_SESSION['clave'];
 
 
+date_default_timezone_set("America/Lima");
+function get_format($df){
+    $str = '';
+    $str .= ($df->invert == 1) ? '  ' : '';
+    if ($df->y > 0) {
+        $str .= ($df->y > 1) ? $df->y . ' Años ' : $df->y . ' Año ';
+    } if ($df->m > 0) {
+        $str .= ($df->m > 1) ? $df->m . ' Meses ' : $df->m . ' Mes ';
+    } if ($df->d > 0) {
+        $str .= ($df->d > 1) ? $df->d . ' Dias ' : $df->d . ' Dia ';
+    } if ($df->h > 0) {
+        $str .= ($df->h > 1) ? $df->h . ' Horas ' : $df->h . ' Hora ';
+    } if ($df->i > 0) {
+        $str .= ($df->i > 1) ? $df->i . ' Minutos ' : $df->i . ' Minuto ';
+    } if ($df->s > 0) {
+        $str .= ($df->s > 1) ? $df->s . ' Segundos ' : $df->s . ' Segundo ';
+    }
+    echo $str;
+}
+
 ?>
 
 <script type="text/javascript"
@@ -123,14 +143,22 @@ echo "<div style='margin:auto;width:90%;background:rgb(20,50,5);padding:5px;text
 if($nw>0){
   $i=1;
   do{
-    echo "<article style='margin:10px auto;padding:5px;background:rgb(100,200,200);'>";
+    echo "<article style='margin-bottom:50px;padding:5px;background:rgb(200,200,200);'>";
     if($w['tipo']=='docente'){  
       echo "<button style='border:none;border-radius:5px;padding:5px;;cursor:pointer' id='deletew' data-idw='".$ww['idcapitulo']."'><span class='fa fa-trash'></span></button>";
       
       echo "<button id='".$i.$i.$i.$i.$i.$i.$i.$i."w' style='border:none;padding:5px;background:rgb(50,100,50);border-radius:5px;text-align:left;color:rgb(255,255,255);cursor:pointer;'>Capitulo ".$i.": </button>
       <input style='display:inline-block;background:rgb(255,255,255);padding:5px;border:none;width:350px;' id='cpt' data-c1 = '".$ww['idcapitulo']."' contenteditable value='".$ww['nombre']."'</input>";
     }
-    echo "<a href='examen.php?idcapitulo=".$ww['idcapitulo']."&cap=".$i."' style='float:right;text-align:center;width:100px;border-radius:3px;background:rgb(20,7,20);border:none;cursor:pointer;text-decoration:none;color:white;padding:3px;'>Examen ".($i)."</a>";
+
+    echo "<a href='examen.php?idcapitulo=".$ww['idcapitulo']."&cap=".$i."' style='float:right;text-align:center;width:100px;border-radius:3px;background:rgb(90,7,90);border:none;cursor:pointer;text-decoration:none;color:white;padding:3px;'>Examen ".($i)."</a>";
+
+
+   $capitulo=mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['clave']."' AND idcapitulo='".$ww['idcapitulo']."'");
+$capitulow=mysqli_fetch_assoc($capitulo);
+ if($w['tipo']=='docente'){  
+   echo "<div style='float:right;text-align:center;width:300px;border-radius:3px;background:rgb(20,70,20);border:none;color:white;padding:2px;'>Tiempo de examen: <input style='border:none ' type=time id='ext' data-tt='".$ww['idcapitulo']."' value='".$capitulow['timex']."'></div>";
+ }
     echo "<button id='".$i.$i.$i.$i.$i.$i.$i.$i."w' style='border:none;padding:5px;background:rgb(50,100,50);border-radius:5px;text-align:left;color:rgb(255,255,255);cursor:pointer;'>Capitulo ".$i.": ".$ww['nombre']." <span class='icon-ff'></span></button>";
   
     echo "<div style='display:;' id='".$i.$i.$i.$i.$i.$i.$i.$i."z'>";
@@ -150,7 +178,7 @@ button.onclick = function() {
   </script>
         <?php
     if($w['tipo']=='docente'){  
-      echo "<textarea style='background:rgb(200,155,100);color:black;border-radius:5px;padding:5px;cursor:pointer' id='cc1' data-c1 = '".$ww['idcapitulo']."' contenteditable>".$ww['descripcion']."</textarea>";
+      echo "<textarea style='background:rgb(200,155,100);color:black;border-radius:5px;padding:5px;cursor:pointer;color:black;border:none;' id='cc1' data-c1 = '".$ww['idcapitulo']."' contenteditable>".$ww['descripcion']."</textarea>";
     }
     echo "<div style='background:rgb(200,255,250);border-radius:5px;margin:3px;padding:5px'>".$ww['descripcion']."</div>";
     
@@ -215,29 +243,46 @@ function setIframeHeight(id) {
         <?php
 //         echo "<a style='cursor: pointer;;text-decoration: none;color:white;' href='secciones.php?clavew=".$ww['idcapitulo']."&clave=".$_SESSION['clave']."'>Agregar seccion".$a['idcapitulo']."</a>" ;
          if($w['tipo']=='docente'){  
-           echo "<textarea style='margin:auto;width:100%;background:rgb(20,70,25);color:white;padding:5px' id='wtexto' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['texto']."</textarea>";
+           echo "<textarea style='margin:auto;width:100%;background:rgb(20,70,25);color:white;padding:5px;color:white;border:none;' id='wtexto' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['texto']."</textarea>";
     }
-         echo "<div style='margin:auto;width:99%;background:rgb(200,70,250);padding:5px;border-radius:5px;'>".$ww1['texto']."</div>";
-         echo "<div style='margin:auto;width:200px;background:rgb(200,0,5);padding:5px;text-align:center;border-radius:3px;'>Tarea</div>";
+         echo "<div style='margin:auto;width:99%;background:rgb(200,200,250);padding:5px;border-radius:5px;'>".$ww1['texto']."</div>";
+         echo "<div style='margin:auto;width:300px;background:rgb(200,70,5);padding:1px;text-align:center;border-radius:10px 10px 0px 0px;margin-top:50px;'>Tarea de la sección ".$j." del capitulo ".$i."</div>";
 if($w['tipo']=='docente'){  
-  echo "<textarea style='margin:auto;width:100%;background:rgb(25,25,255);color:white;padding:5px;' id='sec_tarea' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['tarea']."</textarea>";
+  echo "<textarea style='border:none;border-radius:3px;margin:auto;width:100%;background:rgb(25,25,255);color:white;padding:5px;' id='sec_tarea' data-c1 = '".$ww1['idseccion']."' contenteditable>".$ww1['tarea']."</textarea>";
 }
-echo "<div style='margin:auto;width:99%;background:rgb(255,255,255);padding:5px;border-radius:5px;'>".$ww1['tarea']."</div>";
-echo "<div style='margin:auto;width:90%;background:rgb(100,100,200);margin-bottom:5px;padding:5px;'>";
-$not=mysqli_query($link,"SELECT * FROM tareas WHERE usuario ='".$_SESSION['user']."' AND idplan ='".$ww1['idseccion']."'");   
+echo "<div style='margin:auto;width:99%;background:rgb(255,25,255);padding:5px;border-radius:5px;'>".$ww1['tarea']."</div>";
+echo "<div style='margin:auto;width:90%;background:rgb(100,100,200);margin-bottom:5px;padding:5px;border-radius:0px 0px 10px 10px;text-align:center;'>";
+$not=mysqli_query($link,"SELECT * FROM tareas WHERE usuario ='".$_SESSION['user']."' AND idseccion ='".$ww1['idseccion']."'  AND clave ='".$_SESSION['clave']."'");   
 $notw=mysqli_fetch_assoc($not);
 $nnot=mysqli_num_rows($not);
-
+ if($w['tipo']=='docente'){  
+echo "Fecha de entrega: <input type='datetime' name='ff' id='time' value='".$ww1['time']."' data-ttt='".$ww1['idseccion']."'><br>";
+ }
 if($notw['evaluacion']!=""){
   echo "Calificación: ".$notw['evaluacion'];
         }elseif($nnot>0){ 
           echo "Tarea aún no evaluada - ";
-          echo "<a style='text-decoration:none;color:rgb(255,100,100);' href='sesion.php?claveww=".$ww1['idseccion']."'>Modificar</a>";
+          echo "<a style='text-decoration:none;color:rgb(255,100,100);' href='sendtarea.php?idcpt=".$ww['idcapitulo']."&idsec=".$ww1['idseccion']."'>Modificar</a>";
         }else{
           echo "Tarea no entregada - ";
-          echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sesion.php?claveww=".$ww1['idseccion']."'>Entregar</a>";
+
+          $strStart = $ww1['time'];
+          $datew = new DateTime($strStart);
+          $dateww = new DateTime("now");
+          
+          //echo date_format($dateww, 'd-m-Y H:i:s')."<br>";
+          
+          if ($datew > $dateww){
+            echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sendtarea.php?idcpt=".$ww['idcapitulo']."&idsec=".$ww1['idseccion']."'>Entregar hasta: ".date_format($datew, 'd-m-Y H:i:s').". Faltan: </a>";
+            echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sendtarea.php?idcpt=".$ww['idcapitulo']."&idsec=".$ww1['idseccion']."'>".get_format( $datew->diff($dateww))."</a>";
+
+}else{
+echo "Culminó el periodo de entrega hace ";
+echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sendtarea.php?idcpt=".$ww['idcapitulo']."&idsec=".$ww1['idseccion']."'>".get_format( $datew->diff($dateww))."</a>";
+            
+}
         }
-        echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='calificaciones.php'> - Resumen del  curso</a>";
+        echo "<a style='text-decoration:none;color:rgb(255,90,255)' href='calificaciones.php'> - Tus calificaciones</a>";
         
         echo "</div>";
         echo "</div>";
@@ -275,16 +320,67 @@ if($w['tipo']=='docente'){
 
 $clase=mysqli_query($link,"SELECT * FROM clase WHERE clave='".$_SESSION['clave']."'")     ;
 $clasew=mysqli_fetch_assoc($clase);
-//if($w['tipo']=='docente'){  
+if($w['tipo']=='docente'){  
   echo "<br><div style='text-align:center;'>Adicione tarea del curso</div>";
-echo "<textarea style='display:block;margin:auto;width:90%;background:rgb(255,225,255);padding:5px;' id='sec_tarea' data-c1 = '".$clasew['tarea']."' contenteditable>".$clasew['tarea']."</textarea>";
-//}else{
-echo "<div style='display:block;margin:auto;width:90%;background:rgb(255,225,255);padding:5px;'>".$clasew['tarea']."</div>";
-  echo "<br><div style='text-align:center;'>Adicione su tarea del curso</div>";
-echo "<textarea style='display:block;margin:auto;width:90%;background:rgb(255,225,255);padding:5px;' id='sec_tarea' data-c1 = '".$clasew['tarea']."' contenteditable>".$clasew['tarea']."</textarea>";
+echo "<textarea style='display:block;margin:auto;width:90%;background:rgb(255,75,255);padding:5px;color:black;border:none;' id='tarea' data-c1 = '".$clasew['idclase']."' contenteditable>".$clasew['tarea']."</textarea>";
+       
+   echo "<div style='text-align:center;width:300px;border-radius:3px;background:rgb(20,90,20);border:none;color:white;padding:2px;margin:auto;'>Entregar hasta: 
+   <input style='border:none ' type=datetime id='extt' data-tt='".$ww['idcapitulo']."' value='".$clasew['time']."'></div>";
+   
+   echo "<div style='display:block;margin:auto;width:90%;background:rgb(255,205,255);padding:5px;color:black;border:none; color:black;border-radius:10px' id='sec_tarea' data-c1 = '".$clasew['idclase']."'>".$clasew['tarea']."</div>";
+   
+   echo "<div style='text-align:center;width:300px;border-radius:3px;background:rgb(20,70,20);border:none;color:white;padding:2px; margin:auto;'>Tiempo de examen: 
+   <input style='border:none ' type=time id='extww' data-tt='".$ww['idcapitulo']."' value='".$clasew['timex']."'></div>";
 
-    echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='examen.php'><div style='margin:5px auto;border-radius:5px;width:200px;background:rgb(255,10,70);margin-bottom:5px;padding:5px;text-align:center;'>Examen general</div></a>";
+  
+}else{ 
+           echo "<div style='margin:auto;width:200px;background:rgb(200,80,85);padding:1px;text-align:center;border-radius:10px 10px 0px 0px;'>Tarea general</div>";
+     
+  echo "<div style='display:block;margin:auto;width:90%;background:rgb(255,75,255);padding:5px;color:black;border:none; color:white;border-radius:10px' id='sec_tarea' data-c1 = '".$clasew['idclase']."'>".$clasew['tarea']."</div>";
+  
 
-//<li>  <a href="examen.php"><span class="fa fa-users icon-menu"></span>Examen y tarea</a></li>
-//}
+$rrnot=mysqli_query($link,"SELECT * FROM tareas WHERE usuario ='".$_SESSION['user']."' AND idseccion ='ids' AND clave ='".$_SESSION['clave']."'");   
+$rrnotw=mysqli_fetch_assoc($rrnot);
+$rrnnot=mysqli_num_rows($rrnot);
+
+$rrwnot=mysqli_query($link,"SELECT * FROM clase WHERE clave ='".$_SESSION['clave']."'");   
+$rrwnotw=mysqli_fetch_assoc($rrwnot);
+//echo $rrwnotw['time']."wwwwwwwwww";
+//echo $_SESSION['clave'];
+//var_dump($rrwnotw);
+
+$strStart = $rrwnotw['time'];
+$datew = new DateTime($strStart);
+$dateww = new DateTime("now");
+
+echo "<div style='margin:auto;border-radius:0px 0px 10px 10px;width:80%;background:rgb(255,10,70);margin-bottom:5px;padding:5px;text-align:center;'>";
+if($rrnotw['evaluacion']!=""){
+  echo "Calificación: ".$rrnotw['evaluacion'];
+        }elseif($rrnnot>0){ 
+          echo "Tarea aún no evaluada - ";
+          echo "<a style='text-decoration:none;color:rgb(255,200,200);' href='sendtarea.php?idcpt=idc&idsec=ids'>Modificar hasta: </a>";
+          echo "<a style='text-decoration:none;color:rgb(255,225,255)'>".date_format($datew, 'd-m-Y H:i:s').". Faltan: </a>";
+          echo "<a style='text-decoration:none;color:rgb(255,55,255)'>".get_format( $datew->diff($dateww))."</a>";
+          
+        }else{
+          echo "Tarea no entregada - ";
+          
+          if ($datew > $dateww){
+            echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sendtarea.php?idcpt=idc&idsec=ids'>Entregar hasta: ".date_format($datew, 'd-m-Y H:i:s').". Faltan: </a>";
+            echo "<a style='text-decoration:none;color:rgb(255,25,255)'>".get_format( $datew->diff($dateww))."</a>";
+            
+          }else{
+            echo "Culminó el periodo de entrega hace ";
+            echo "<a style='text-decoration:none;color:rgb(255,255,255)' href='sendtarea.php?idcpt=".$ww['idcapitulo']."&idsec=".$ww1['idseccion']."'>".get_format( $datew->diff($dateww))."</a>";
+            
+          }
+        }
+        echo "</div>";
+
+        
+      }
+
+        
+        
+echo "<a style='text-decoration:none;color:rgb(255,255,255);background:rgb(25,10,70)' href='examen.php'><div style='margin:5px auto;border-radius:5px;width:200px;background:rgb(25,10,70);margin-bottom:5px;padding:5px;text-align:center;'>Examen general</div></a>";
 ?>

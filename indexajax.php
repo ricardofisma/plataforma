@@ -85,14 +85,16 @@ echo "</article>";
 	$about2=mysqli_query($link,"SELECT * FROM land WHERE tipo='logo'");
 	$aboutw2=mysqli_fetch_assoc($about2);
 	
-	echo "<article style='width:80%;text-align:center;color:white;background:".$aboutw2['color'].";margin:5px auto;border-radius:5px;padding:5px;'>";
+	echo "<article style='width:90%;text-align:center;color:white;background:".$aboutw2['color'].";margin:5px auto;border-radius:5px;padding:5px;    display:flex;flex-wrap:wrap;
+    align-items: center;
+  justify-content: center;'>";
 	if($w['tipo']=='docente'){
 		echo "<button style='float:right;border:none;border-radius:3px;padding:5px;' id='deleter' data-ff='".$aboutw2['idland']."'><i class='fa fa-trash'></i></button>";
 		echo "<input style='padding:1px;border-radius:3px;border:2px solid;' type='color' id='color' data-c1='".$aboutw2['idland']."' value = '".$aboutw2['color']."'>";
 		echo "<input style='float:right;padding:1px;border-radius:3px;border:2px solid;' type='color' id='color2' data-c1='".$aboutw2['idland']."' value = '".$aboutw2['color2']."'>";
 		echo "<div style='float:right;width:50%;color:white;background:".$aboutw2['color2'].";font-size:30px;font-family:Georgia;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$aboutw2['idland']."' contenteditable>".$aboutw2['nombre']."</div>";
 	}else{
-		echo "<div style='float:right;width:50%;color:white;background:rgb(10,0,70);font-size:30px;font-family:Georgia;border-radius:3px;padding:5px;'>".$aboutw2['nombre']."</div>";
+		echo "<div style='float:right;margin:auto;width:100%;color:white;background:rgb(100,0,70);font-size:30px;font-family:Georgia;border-radius:3px;padding:5px;'>".$aboutw2['nombre']."</div>";
 }
 echo "<div>";// style='  width:150px;height:150px;overflow:hidden;border-radius:5px;position:relative;object-fit:cover;margin:auto;'>";
 echo "<img style='height:155px ;cursor:pointer;border-radius:5px;' id='upfilew2' src= 'archivosland/".$aboutw2['idland']."".$aboutw2['foto']."' onerror=this.src='curso.png'>";
@@ -131,11 +133,11 @@ $("#imagew2").trigger('click');
 echo "<article style='width:90%;text-align:center;color:white;background:".$aboutw['color'].";margin:5px auto;border-radius:5px;padding:5px;' id='article'>";
 if($w['tipo']=='docente'){
 	echo "<input style='padding:1px;border-radius:3px;border:2px solid;' type='color' id='color' data-c1='".$aboutw['idland']."'>";
-echo "<h1 style='width:90%;color:white;background:rgb(10,0,70);font-size:30px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$aboutw['idland']."' contenteditable>".$aboutw['nombre']."</h1>";
-echo "<div style='width:90%;color:white;background:rgb(10,0,150);font-size:20px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw['idland']."' contenteditable>".$aboutw['texto']."</div>";
+echo "<h1 style='width:90%;color:white;background:rgb(10,100,70);font-size:30px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$aboutw['idland']."' contenteditable>".$aboutw['nombre']."</h1>";
+echo "<div style='width:90%;color:white;background:rgb(10,100,150);font-size:20px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw['idland']."' contenteditable>".$aboutw['texto']."</div>";
 }else{
-echo "<h1 style='width:90%;color:white;background:rgb(10,0,70);font-size:30px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$aboutw['idland']."'>".$aboutw['nombre']."</h1>";
-echo "<div style='width:90%;color:white;background:rgb(10,0,150);font-size:20px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw['idland']."'>".$aboutw['texto']."</div>";
+echo "<h1 style='width:90%;color:white;background:rgb(10,100,70);font-size:30px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$aboutw['idland']."'>".$aboutw['nombre']."</h1>";
+echo "<div style='width:90%;color:white;background:rgb(10,100,150);font-size:20px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw['idland']."'>".$aboutw['texto']."</div>";
 }
 $about1=mysqli_query($link,"SELECT * FROM land WHERE tipo='acercaitems'");
 $aboutw1=mysqli_fetch_assoc($about1);
@@ -144,16 +146,16 @@ do{
 	echo "<ul>";
 if($w['tipo']=='docente'){
 	echo "<button style='float:right;margin:5px;border:none;border-radius:5px;' id='deleter' data-ff='".$aboutw1['idland']."'><i class='fa fa-trash'></i></button>";
-	echo "<li><div style='text-align:left;color:rgb(0,0,0);background:rgb(10,100,70);font-family:Georgia;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw1['idland']."' contenteditable>".$aboutw1['texto']."</div></ul>";
+	echo "<li><div style='text-align:left;color:rgb(0,70,100);background:rgb(200,200,200);font-family:Georgia;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw1['idland']."' contenteditable>".$aboutw1['texto']."</div></ul>";
 }else{
-	echo "<li><div style='text-align:left;color:rgb(0,0,0);background:rgb(10,100,70);font-family:Georgia;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw1['idland']."' >".$aboutw1['texto']."</div></ul>";
+	echo "<li><div style='text-align:left;color:rgb(0,70,100);background:rgb(255,255,255);font-family:Georgia;border-radius:3px;padding:5px;' id='ww1' data-c1='".$aboutw1['idland']."' >".$aboutw1['texto']."</div></ul>";
 }
 	echo "</ul>";
 }while($aboutw1=mysqli_fetch_assoc($about1));
 if($w['tipo']=='docente'){
 
 ECHO "<div style='width:90%;text-align:center;color:white;background:rgb(10,10,30);margin:5px auto;border-radius:3px;padding:5px;'> 
-<button style='background:rgb(22,10,110);color:white;border:none;border-radius:5px;padding:7px;' id='additems'>Agregar items</button></div>";
+<button style='background:rgb(22,200,110);color:white;border:none;border-radius:5px;padding:7px;' id='additems'>Agregar items</button></div>";
 }
 ?>	
 
@@ -184,9 +186,9 @@ ECHO "<div style='width:90%;text-align:center;color:white;background:rgb(10,10,3
 	do{
 	if($w['tipo']=='docente'){
 	echo "<button style='float:right;border:none;border-radius:3px;padding:5px;' id='deleter' data-ff='".$wwwr['idland']."'><i class='fa fa-trash'></i></button>";
-	echo "<div style='width:90%;text-align:center;color:white;background:rgb(10,0,70);font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$wwwr['idland']."' contenteditable>".$wwwr['texto']."</div>";
+	echo "<div style='width:90%;text-align:center;color:white;background:rgb(10,100,70);font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$wwwr['idland']."' contenteditable>".$wwwr['texto']."</div>";
 }else{
-	echo "<div style='width:90%;text-align:center;color:white;background:rgb(10,0,70);font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$wwwr['idland']."'>".$wwwr['texto']."</div>";
+	echo "<div style='width:90%;text-align:center;color:white;background:rgb(10,100,70);font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$wwwr['idland']."'>".$wwwr['texto']."</div>";
 }
 }while($wwwr=mysqli_fetch_assoc($www));
 if($w['tipo']=='docente'){
@@ -297,7 +299,7 @@ echo "<object style='align:center;display:block;;margin:5px auto;width:97%;heigh
 if($w['tipo']=='docente'){
 echo "<h1 style='width:90%;text-align:center;color:white;background:rgb(100,25,255);color:rgb(0,0,0);font-size:20px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$wwwr1['idland']."' contenteditable>".$wwwr1['nombre']."</h1>";
 echo "<div style='width:90%;text-align:center;color:white;background:rgb(100,5,255);font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='ww1' data-c1='".$wwwr1['idland']."' contenteditable>".$wwwr1['texto']."</div>";
-echo "<div style='width:90%;text-align:center;color:white;background:rgb(50,5,30);margin:5px auto;border-radius:3px;padding:5px;' id='wwvideo' data-c1='".$wwwr1['idland']."' contenteditable>".$wwwr1['archivo']."</div>";
+echo "<div style='width:90%;text-align:center;color:white;background:rgb(5,75,255);margin:5px auto;border-radius:3px;padding:5px;' id='wwvideo' data-c1='".$wwwr1['idland']."' contenteditable>".$wwwr1['archivo']."</div>";
 echo "<button style='margin:5px;border:none;border-radius:5px;' id='deleter' data-ff='".$wwwr1['idland']."'><i class='fa fa-trash'></i></button>";
 }else{
 echo "<h1 style='width:90%;text-align:center;color:white;background:rgb(100,25,255);color:rgb(0,0,0);font-size:20px;font-family:Georgia;margin:5px auto;border-radius:3px;padding:5px;' id='wwnombre' data-c1='".$wwwr1['idland']."' >".$wwwr1['nombre']."</h1>";

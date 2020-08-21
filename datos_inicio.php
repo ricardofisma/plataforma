@@ -12,7 +12,7 @@ if(isset($_REQUEST['clavecurso'])){
 $user=$_POST['clavecurso'];
 $categoria=$_POST['clavvcategoria']; 
 echo $user;
-$consulta=mysqli_query($link,"INSERT INTO clase VALUES(NULL, 'Nombre','$cad', '$user', NULL, 'foto' , '250', 'Descripción', 'Link video', '$categoria','Edite la tarea del curso')");
+$consulta=mysqli_query($link,"INSERT INTO clase VALUES(NULL, 'Nombre','$cad', '$user', NULL, 'foto' , '250', 'Descripción', 'Link video', '$categoria','Edite la tarea del curso', NULL, NULL)");
 if(!$consulta){
   echo "no ok";
 }else{
