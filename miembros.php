@@ -46,10 +46,11 @@ $con= mysqli_query($link,"SELECT clase.nombre FROM clase WHERE clave='".$_SESSIO
 .contenedor-imagenesw .imagen{
 text-align: center;
 width:300px;
-border-radius:10px;
+border-radius:6px;
 position:relative;
 margin:10px;
-background-color: rgb(70, 30, 70);
+border:.05em solid ;
+background-color: rgb(210, 250, 250);
 box-shadow:0px 0px 0px 0px rgba(0,0,0,.75);
 }
 
@@ -57,18 +58,18 @@ box-shadow:0px 0px 0px 0px rgba(0,0,0,.75);
 
 
 <article>
-    <h1>Integrantes del curso de <?php echo $wew['nombre']?></h1> 
+    <h1 style='text-align:center;'>Integrantes del curso de <?php echo $wew['nombre']?></h1> 
     
 <div class= "contenedor-imagenesw">
         <?php
 echo "<div class='imagen'>";
-echo "<h1 style='border-radius:5px 5px 0px 0px;background:rgb(255,90,110);font-size:15px'>" .$docent['tipo']. "</h1>";
+echo "<h1 style='border-radius:5px 5px 0px 0px;font-size:15px'>" .$docent['tipo']. "</h1>";
 echo "<div class='wrapper' style='margin:5px auto;'><img src= 'archivos/".$docent['usuario']."".$docent['foto']."' onerror=this.src='foto.png'></div>";
-echo "<h1 style='background:rgba(255,255,255);width:90%; margin:10px auto;font-size:20;border-radius:5px;padding:3px;'>" .$docent['nombre']. "</h1>";
+echo "<h1 style='background:rgba(255,255,255);width:90%; margin:0px auto;font-size:0.7em;border-radius:5px;padding:3px;'>" .$docent['nombre']. "</h1>";
 if($docent['confirmar']=='confirmado'){
 echo "<h1 style='border-radius:0px 0px 5px 5px;font-size:15px;background:rgba(255,105,10)'><a style='text-decoration:none;color:white' href='email.php?enviara='".$docent['email']."'>" .$estudiant['email']. "</a></h1>";
 }else{
-    echo "<h1 style='background:red; font-size:15px;border-radius:0px 0px 5px 5px'>Correo no confirmado</h1>";
+//    echo "<h1 style='background:red; font-size:15px;border-radius:0px 0px 5px 5px'>Correo no confirmado</h1>";
 }
 echo "</div>";
 ?>
@@ -77,13 +78,13 @@ echo "</div>";
 if($nm>0){
 do{
 echo "<div class='imagen'>";
-echo "<h1 style='border-radius:5px 5px 0px 0px;background:rgb(255,90,100);font-size:15px'>" .$estudiant['tipo']. "</h1>";
+echo "<h1 style='border-radius:5px 5px 0px 0px;font-size:15px'>" .$estudiant['tipo']. "</h1>";
 echo "<div class='wrapper' style='margin:5px auto;'><img src= 'archivos/".$estudiant['usuario']."".$estudiant['foto']."' onerror=this.src='foto.png'></div>";
-echo "<h1 style='background:rgba(255,255,255);width:90%; margin:10px auto;font-size:20;border-radius:5px;padding:3px'>" .$estudiant['nombre']. "</h1>";
+echo "<h1 style='background:rgba(255,255,255);width:90%; margin:0px auto;font-size:.7em;border-radius:5px;padding:3px'>" .$estudiant['nombre']. "</h1>";
 if($estudiant['confirmar']=='confirmado'){
 echo "<h1 style='border-radius:0px 0px 5px 5px;font-size:15px;background:rgba(255,105,10)'><a style='text-decoration:none;color:white' href='email.php?enviara='".$estudiant['email']."'>" .$estudiant['email']. "</a></h1>";
 }else{
-echo "<h1 style='background:red; font-size:15px;border-radius:0px 0px 5px 5px'>Correo no confirmado</h1>";
+//echo "<h1 style='background:red; font-size:15px;border-radius:0px 0px 5px 5px'>Correo no confirmado</h1>";
 }
 echo "</div>";
 }while($estudiant=mysqli_fetch_assoc($estudian));

@@ -13,7 +13,7 @@ if(isset($_REQUEST['cerrar'])){
 
 $user=mysqli_query($link,"SELECT * FROM usuario WHERE idusuario='".$_SESSION['user']."'")     ;
 $g=mysqli_fetch_assoc($user);
-echo $_SESSION['user'];
+//echo $_SESSION['user'];
 
 if(isset($_REQUEST['actualizar']) && !empty($_REQUEST['actualizar'])){
     $p=$_REQUEST['pass'];

@@ -19,12 +19,11 @@ if(isset($_REQUEST['cerrar'])){
 
 
 
-<script src="jquery-3.0.0.min.js"></script>
 <script>
 $(document).ready(function(){
 function mostrar_datos(){
 $.ajax({
-url:"calificacionesajax.php",
+url:"calificacion_ajax.php",
 method:"POST", 
 success:function(data){
   $("#resultado").html(data)

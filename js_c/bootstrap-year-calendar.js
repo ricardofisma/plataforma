@@ -1106,8 +1106,8 @@
         "Saturday",
         "Sunday",
       ],
-      daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+      daysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+      daysMin: ["D", "L", "M", "M", "J", "V", "S", "D"],
       months: [
         "Enero",
         "Febrero",

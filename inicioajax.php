@@ -27,9 +27,7 @@ $curso1=mysqli_fetch_assoc($conw);
 
 ?>  
 
-<article style="background:rgb(70,200,200);">
-<div  style= "display:flex; width:100%;border:3px solid rgb(255,255,225);width:90%; margin:auto; border-radius: 10px;   display:flex;
-    width:100%;
+<div  style= "display:flex;border:1px solid;min-width:300px;max-width:80%; margin:auto; border-radius: 10px;   display:flex;
     padding:5px;
     flex-wrap:wrap;
     align-items: center;
@@ -42,7 +40,6 @@ echo "<div title='Edite su perfil' class='wrapper' style='margin: auto;'><a styl
 echo "<div style='margin:auto;background:rgb(10,100,100);border-radius:7px;color:white;font-size:20px;text-align:center;padding:5px;' id='nombre' data-c1='".$w['idusuario']."' contenteditable>".$w['nombre']."</div>";
 ?>
 </div>
-</article>
 
 
 <?php 
@@ -99,17 +96,17 @@ if($n>0){
     if($nmisclases>0){
       echo "<div style='text-align: center;background:rgb(255,100,100);width:250px;border-radius:10px;position:relative;margin:5px;border:1px solid;'>";
     }else{
-      echo "<div style='text-align: center;background:rgb(255,255,255);width:200px;border-radius:5px;position:relative;margin:5px;padding:0.2em;'>";
+      echo "<div style='text-align: center;background:rgb(255,255,255);width:200px;border-radius:5px;position:relative;margin:5px;padding:0em;'>";
     
     }
     if($w['tipo']=='estudiante'){
     echo "<div style='margin: 0px auto;width:80%;background:rgb(10,100,100);border-radius:0px 0px 5px 5px;color:white;font-size:20px;'>".$curso['nombre']."</div>";
     }
-    if($curso['link']=='Link video'){
-      ECHO "<iframe src='https://www.youtube.com/embed/zoGqt6ObPC8' style='align:center;display:block;width:100%; height:200px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>wwwww</iframe>";
-      }else{
-      ECHO "<iframe src='".$curso['link']."' style='align:center;display:block;width:100%;height:200px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>ww</iframe>";
-    }
+//    if($curso['link']=='Link video'){
+//      ECHO "<iframe src='https://www.youtube.com/embed/zoGqt6ObPC8' style='align:center;display:block;width:100%; height:200px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>wwwww</iframe>";
+//      }else{
+//      ECHO "<iframe src='".$curso['link']."' style='align:center;display:block;width:100%;height:200px;border-radius:3px;' frameborder='0' //allowfullscreen='allowfullscreen'>ww</iframe>";
+//    }
      //    echo "<iframe style='align:center;display:block;;margin:5px auto;width:97%;height:300px;border-radius:3px;' data='".$curso['link']."'  frameborder = '0' allowfullscreen></iframe>";
         //  echo "<div style='margin:auto;width:80%; margin-bottom:5px;'><p>" .$curso['clave']. "</p></div>";
   //  echo "<div style='margin:auto;width:80%'><p>" .$curso['fecha']. "</p></div>";

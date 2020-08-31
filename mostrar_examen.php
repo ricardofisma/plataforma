@@ -20,19 +20,18 @@ date_default_timezone_set("America/Lima");
 $user=mysqli_query($link,"SELECT * FROM usuario WHERE idusuario='".$_SESSION['user']."'")     ;
 $w=mysqli_fetch_assoc($user);
 
-
-if($_REQUEST['idcapitulo']='cpt' && $w['tipo']=='estudiante'){
+//echo $_SESSION['idcapitulo']."<br>";
+if($_SESSION['idcapitulo']=='cpt' && $w['tipo']=='estudiante'){
   $conw=mysqli_query($link,"SELECT * FROM clase WHERE clave='".$_SESSION['clave']."'");
 $nw=mysqli_num_rows($conw);
 $ww=mysqli_fetch_assoc($conw);
-//var_dump($ww);
-
 }else{
   $conw=mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['clave']."'  AND idcapitulo='".$_SESSION['idcapitulo']."'");
   $nw=mysqli_num_rows($conw);
   $ww=mysqli_fetch_assoc($conw);
-//  var_dump($ww);
 }
+
+//   var_dump($ww);
 
 $hour=date('H', strtotime($ww['timex']));
 $min=date('i', strtotime($ww['timex']));
@@ -45,7 +44,7 @@ $min=date('i', strtotime($ww['timex']));
 //echo date_format(new DateTime('now +'.$hour.' hours +'.$min.' minutes'), 'd-m-Y H:i:s')."<br>";
 //echo date_format(new DateTime('now +0 hours +0 minutes'), 'd-m-Y H:i:s')."<br>";
 //echo $_SESSION['idcapitulo']."<br>";
-//
+
 //
 //
 //echo $_SESSION['idcapitulo'];
@@ -81,6 +80,7 @@ $rr=mysqli_query($link,"SELECT * FROM respuestas WHERE clavecurso='".$_SESSION['
 $nrr=mysqli_num_rows($rr);
 $rrw=mysqli_fetch_assoc($rr);
 
+//   echo "zzzzzzzzzzzzzzzzzzz";
 
 if($_REQUEST['idcapitulo']=$_SESSION['idcapitulo'] && $w['tipo']=='estudiante'){
 $claves=$_SESSION['clave'];
@@ -89,30 +89,18 @@ $cap=$_SESSION['cap'];
 $idw=date_format(new DateTime('now +'.$hour.' hours +'.$min.' minutes'), 'd-m-Y H:i:s');
 $idc=$_SESSION['idcapitulo'];
 $cnota=mysqli_query($link,"SELECT * FROM  respuestas WHERE usuario='$user' AND clavecurso='$claves' AND idalternativa='inicio' AND respuesta='inicio' AND idcpt='$idc' AND clavepregunta='Cap: ".$_SESSION['cap']."' AND escritanota='".$rrw['escritanota']."'");
-  $nnota=mysqli_num_rows($cnota);
-  echo $nnota;
+$nnota=mysqli_num_rows($cnota);
+//  echo $nnota;
 if($nnota>0){
-//echo "<script>alert('Dato ya incluidoww')</script>";
 }else{
   $consulta=mysqli_query($link,"INSERT INTO respuestas VALUES(NULL, '$user', '$claves', 'Cap: $cap', 'inicio','inicio', '$idw ','$idc')");
   if(!$consulta){
-//echo "<script>alert('No ok')</script>";
   }else{    
-//echo "<script>alert('Ok')</script>";
-header('Location: '.$_SERVER['PHP_SELF']);  
-  }
+    header('Location: '.$_SERVER['PHP_SELF']);  
+}
 
 }
 }
-
-
-
-//$cnota=mysqli_query($link,"SELECT * FROM  respuestas WHERE usuario='$user' AND clavecurso='$claves' AND idalternativa='inicio' AND respuesta='inicio' AND idcpt='$idc' AND clavepregunta='Cap: ".$_SESSION['cap']."' AND escritanota='".$rrw['escritanota']."'");
-//$rrwww=mysqli_fetch_assoc($cnota);
-//var_dump($rrwww);
-//echo $_SESSION['clave']."<br>";
-//echo $ww['idcapitulo']."<br>";
-//echo $_SESSION['user']."<br>";
 
 $strStart = $rrw['escritanota'];
 $datei = new DateTime("now");
@@ -120,32 +108,31 @@ $datef = new DateTime($strStart);
 
 $d1=date_format($datei, 'd-m-Y H:i:s')."<br>";
 $d2=date_format($datef, 'Y-m-d H:i:s')."<br>";
-echo $d1;
-echo $strStart;
-
+//   echo $d1;
+//   echo $strStart;
 
 if ($datef < $datei){
-  echo "<div style='margin:5px auto;width:90%;color:black;text-align:center;background:rgb(100,200,100);'>";
-  echo "El examen culminó hace ";
-  echo "<a style='text-decoration:none;color:rgb(25,25,25)'>".get_format( $datei->diff($datef))."</a>";
+echo "<div style='margin:5px auto;width:90%;color:black;text-align:center;background:rgb(100,200,100);'>";
+echo "El examen culminó hace ";
+echo "<a style='text-decoration:none;color:rgb(25,25,25)'>".get_format( $datei->diff($datef))."</a>";
 echo "</div>";
 }else{
-  echo "<div style='border-radius:10px;margin:auto;width:90%;color:black;text-align:center;background:rgb(20,200,155);padding:5px;color:white'>";
-  echo "<a style='text-decoration:none;'>Tiene hasta : ".date_format($datef, 'H:i:s').". Faltan: </a>";
-  //  echo "<a style='text-decoration:none;'>".get_format( $datei->diff($datef))."</a>";
-  echo "<div style='margin:auto;width:50%;' class='example' data-date='".date_format($datef, 'Y-m-d H:i:s')."'></div>";
-  echo "No es necesario registrar su examen, el examen se actualiza constantemente";
-  echo "</div>";
+echo "<div style='border-radius:10px;margin:auto;width:90%;color:black;text-align:center;background:rgb(20,200,155);padding:5px;color:white'>";
+echo "<a style='text-decoration:none;'>Tiene hasta : ".date_format($datef, 'H:i:s').". Faltan: </a>";
+//  echo "<a style='text-decoration:none;'>".get_format( $datei->diff($datef))."</a>";
+echo "<div style='margin:auto;width:50%;' class='example' data-date='".date_format($datef, 'Y-m-d H:i:s')."'></div>";
+echo "No es necesario registrar su examen, el examen se actualiza constantemente";
+echo "</div>";
   
 //////////////////////////////////////////////////////////////////////////
 
 ?>
 
 <script type="text/javascript" src="TimeCircles.js"></script>
-<link href="TimeCircles.css" rel="stylesheet">    
+<link href="TimeCircles.css" rel="stylesheet">
 
 <script>
-$(".example").TimeCircles(); 
+$(".example").TimeCircles();
 //   (function(){"use strict";
 //   
 //   var secondsSpentElement = document.getElementById("seconds-spent");
@@ -164,9 +151,7 @@ $(".example").TimeCircles();
 
 //   Seconds spent on page:&nbsp; <input id="seconds-spent" size="6" readonly="" /><br />
 //   Milliseconds spent here: <input id="milliseconds-spent" size="6" readonly="" />
-
 </script>
-
 
 
 
@@ -174,10 +159,8 @@ $(".example").TimeCircles();
 $capitulo=mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['clave']."' AND idcapitulo='".$_SESSION['idcapitulo']."'");
 $capitulow=mysqli_fetch_assoc($capitulo);
 echo "<div style='border-radius:10px;margin:5px auto;width:90%;color:black;text-align:center;background:rgb(200,200,155);padding:5px;'>";
- echo "Tiempo de examen: ".$capitulow['timex'];
- echo "</div>";
-
- 
+echo "Tiempo de examen: ".$capitulow['timex'];
+echo "</div>";
 
 echo "<article style='background:rgb(0,150,150)'>";
 
@@ -187,21 +170,13 @@ echo "Examen general del curso";
 }else{
 echo "Examen del capítulo ".$_SESSION['cap'];
 }
+
 echo  "</h1>";
-
-
-
-
-
-
-
-
 
 
 
 if($nw>0){                                                                                                                        //iff//preguntas
   $i=1;
-
 do{                                                                                                                              //do1
 
   echo "<div style='background:rgb(50,70,70);border-radius:5px;margin-bottom:20px;padding:5px;color:white;'>";
@@ -368,10 +343,10 @@ if($w['tipo']=='estudiante'){
     $cpunto=mysqli_query($link,"SELECT * FROM  examen, respuestas WHERE idpregunta='".$ww['idpregunta']."'");
     $punto=mysqli_fetch_assoc($cpunto);
     $gg=$punto['calificativo'];
-    echo $gg;
+//echo "<div style='background:rgb(10,100,200)'>".$gg."</div>";
   }else{
     $gg=0;
-    echo $gg;
+//echo "<div style='background:rgb(10,100,200)'>".$gg."</div>";
   }
   
 }
@@ -419,10 +394,9 @@ if($w['tipo']=='docente'){
   $sumw = $roww['sumw'];
   $ggg=$sumw+$sum;
   //echo $_SESSION['clave'];
-  echo "Alternativas: ".$sum."--";
-  echo "Escritas: ".$sumw;
+//echo "<div style='background:rgb(100,200,200)'>Alternativas: ".$sum." -- Escritas: ".$sumw."</div>";
 
-  echo "<div style='margin:5px auto;width:90%;color:black;text-align:center;background:rgb(100,200,100);'><p>Total ".$ggg." puntos </p></div>";
+//  echo "<div style='margin:5px auto;width:90%;color:black;text-align:center;background:rgb(100,200,100);'><p>Total ".$ggg." puntos </p></div>";
 
 }
 

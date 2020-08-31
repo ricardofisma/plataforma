@@ -41,6 +41,12 @@ if(isset($_REQUEST['eliminararchivos'])){
 
     ?>
 
+<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+                <script>
+                        CKEDITOR.replace( 'editor' );
+                </script>
+
 
 <script src="jquery-3.0.0.min.js"></script>
 
@@ -91,6 +97,22 @@ obtener_capitulos();
 }})})
 
 
+//ACTUALIZAR tarea clase
+function actualizar_clase(id,texto,columna){
+$.ajax({
+url:"datos_capitulos.php",
+method:"post",
+data:{idclase: id, textoc: texto, columnac: columna},
+success:function(data){ 
+obtener_capitulos();
+//alert(data);
+}})}
+$(document).on("blur", "#clase", function(){
+var id=$(this).data("c1");
+var x1=$(this).val();
+//alert(x1);
+actualizar_clase(id, x1,"tarea")
+}) 
 
 //ACTUALIZAR capitulo
 function actualizar_datos(id,texto,columna){

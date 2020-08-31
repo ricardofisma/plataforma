@@ -1,3 +1,15 @@
+<link rel="stylesheet" href="./richtext.min.css">
+<script type="text/javascript" src="./jquery.richtext.js"></script>
+
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({ "fast-preview": {disabled:true},TeX: {equationNumbers: { autoNumber:"AMS"}}, tex2jax: {preview: "none", inlineMath: [['$','$'], ['\\(','\\)']]}, "HTML-CSS": { availableFonts: ["Tex"] }});
+MathJax.Hub.processSectionDelay = 0;
+</script>
+
+
 <?php
 
 require('conect.php');
@@ -100,6 +112,7 @@ $w=mysqli_fetch_assoc($user);
 
 
 
+
 echo "<article>";
 
 $tareas=mysqli_query($link,"SELECT * FROM tareas WHERE idseccion='".$_SESSION['idsec']."' AND clave='".$_SESSION['clave']."' AND usuario='".$_SESSION['user']."'");
@@ -107,21 +120,34 @@ $arraytareas=mysqli_fetch_assoc($tareas);
 $nts=mysqli_num_rows($tareas);
 
 
-echo "<h1 style='display:block;margin:auto;background:rgb(100,100,10);text-align: center'>Tarea</h1><br>";
+echo "<h1 style='display:block;margin:auto;background:rgb(100,100,200);text-align: center'>Tarea</h1><br>";
 echo "<div style='display:block;margin:auto;background:rgb(10,10,100);color:white;text-align: center'>".$a['tarea']."</div><br>";
 
 if($w['tipo']=='estudiante'){
 
 if($nts==0){                                                                                                                                                       //
     
-    echo "<h1 style='display:block;margin:auto;background:rgb(100,10,100);text-align: center'>Entregar tarea</h1>";
-    echo "<textarea name='texto' id='addtarea' required> ".$arraytareas['texto']."</textarea>";
+echo "<h1 style='display:block;margin:auto;background:rgb(100,10,100);text-align: center'>Entregar tarea</h1>";
+
+echo "<textarea class='".$arraytareas['idtarea']."ww' name='texto' id='addtarea' placeholder='Escriba su tarea'; required></textarea>";
+
+      ?>
+
+<script>
+$(document).ready(function() {
+    $('.<?php echo  $arraytareas['idtarea']."ww" ?>').richText();
+});
+</script>
+
+<?php
 
 
-echo "<input id='imagew' id='".$arraytareas['idtarea']."' type='file' style='display:none'></input>";  
+echo "<input id='imagew' id='".$arraytareas['idtarea']."' type='file' style='display:none'></input>";
+
 //echo "<a style='cursor:pointer;background:rgb(155,155,255);padding:5px;border-radius:5px;margin:5px auto;display:block;width:300px;text-align:center;' onclick='fileUpload()'>Cargar archivos </a>";
 
       ?>
+
 <script>
 function fileUpload() {
     $("#imagew").click();
@@ -133,10 +159,10 @@ function fileUpload() {
 <?php
 }else{                                                                                                                                                                //
     
-echo "<h1 style='display:block;margin:auto;background:rgb(100,100,100);text-align: center;font-size:0.8em;'> Tarea entregada</h1>";
+echo "<h1 style='display:block;margin:auto;text-align: center;font-size:0.8em;margin:3px;'> Tarea entregada</h1>";
 
 echo "<div  style= 'display:flex; width:100%;flex-wrap:wrap;align-items: center;  justify-content: center;'>";
-echo "<div class='imagen' style='display:block;margin:auto;background:rgb(100,100,10);text-align: center'>";
+echo "<div class='imagen' style='display:block;margin:auto;background:rgb(200,200,200);text-align: center'>";
 echo "<div style='text-align: center;width:370px;border:0px solid;;border-radius:1px;position:relative;margin:5px;'>";
 
 echo "<div title='Edite su perfil' style='width:250px;height:250px;overflow: hidden;border-radius:1px;position: relative;object-fit:cover;margin:5px auto;'><a style='cursor: pointer;' href='javascript:abrir()'><img style='cursor: pointer;' src= 'archivostarea/".$_SESSION['idsec']."_".$arraytareas['archivo']."' onerror=this.src='foto.png'></a></div>";
@@ -148,7 +174,7 @@ echo "</div>";
 
     
     echo "<input id='imagew' id='".$arraytareas['idtarea']."' type='file' style='display:none'></input>";  
-    echo "<a style='cursor:pointer;background:rgb(155,155,255);padding:5px;border-radius:5px;margin:5px auto;display:block;width:300px;text-align:center;' onclick='fileUpload()'>Actualizar archivos </a>";
+    echo "<a style='cursor:pointer;background:rgb(205,205,205);padding:5px;border-radius:5px;margin:5px auto;display:block;width:300px;text-align:center;' onclick='fileUpload()'>Actualizar archivos </a>";
 
       ?>
 <script>
@@ -157,28 +183,37 @@ function fileUpload() {
 }
 </script>
 
+
+        <script>
+        $(document).ready(function() {
+            $('.<?php echo  $arraytareas['idtarea']?>').richText();
+        });
+        </script>
+
 <?php
 
 
-echo "<div class='imagen' style='display:block;margin:auto;background:rgb(100,100,200);text-align: center'>";
+echo "<div class='imagen' style='display:block;margin:auto;background:rgb(100,250,200);text-align: center'>";
 
-echo "<textarea name='texto' id='addtarea' required>".$arraytareas['texto']."</textarea>";
+echo "<textarea class='".$arraytareas['idtarea']."' name='texto' id='addtarea' required>".$arraytareas['texto']."</textarea>";
 echo "<p>".$arraytareas['texto']."</p>";
 
+echo "<div>";
+echo "</article>";
 
+echo "<div style='display:block;margin:auto;text-align:center;width:95%;'>";
 if($arraytareas['evaluacion']==""){
-    echo "<a style=' color: rgb(70,255,250); cursor:pointer' id='deleteww' data-idw='".$arraytareas['idtarea']."' data-ids   ='".$_SESSION['idsec']."'><i class='fa fa-trash'></i></a>";
-    echo "<h1 style='display:block;margin:auto;background:rgb(100,100,100);text-align: center; font-size: 18px;'>Tarea aun no evaluada</h1>";
+    echo "<a style=' color: rgb(200,75,100); cursor:pointer' id='deleteww' data-idw='".$arraytareas['idtarea']."' data-ids   ='".$_SESSION['idsec']."'><i class='fa fa-trash'></i></a>";
+    echo "<h1 style='display:block;margin:auto;text-align: center; font-size: 18px;'>Tarea aun no evaluada</h1>";
 }
 
 if($arraytareas['evaluacion']!=""){
-    echo "[ Evaluacion: <span>".$arraytareas['evaluacion']."</span> ]";
+  echo "[ Evaluacion: <span>".$arraytareas['evaluacion']."</span> ]";
 }
 
 echo " [ Fecha de entrega: ".$arraytareas['fecha']." ] <br>";
 
-echo "<div>";
-echo "</article>";
+echo "</div>";
 
 echo "<article>";
 echo "<div style='display:block;margin:auto;background:rgb(100,100,100);text-align: center'><h1>" .$a['nombre']. "</h1></div>";

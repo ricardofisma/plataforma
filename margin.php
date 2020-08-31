@@ -48,7 +48,7 @@ $conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['cla
 				<li class="title-menu">Todas las categorias</li>
 				 TITULAR -->
 				
-				<li><a href="capitulo.php?clave=<?php echo $_SESSION['clave'];?>"><span class="fa fa-home icon-menu"></span>Inicio del curso</a></li>
+				<li>  <a href="inicio.php"><span class="fa fa-th-list icon-menu"></span>Inicio</a></li> 
 				
 				<!--
 				<li class="item-submenu" menu="2">
@@ -91,13 +91,13 @@ $conzw= mysqli_query($link,"SELECT * FROM capitulo WHERE clave='".$_SESSION['cla
 				</li>
 				-->
 			
-				<li>  <a href="inicio.php"><span class="fa fa-home icon-menu"></span>Categorias</a></li> 
-				<li>  <a href="calendario.php"><span class="fa fa-calendar-o icon-menu"></span>Calendario</a></li> 
-				<li>  <a href="foro.php"><span class="fa fa-comments icon-menu"></span>Foro del curso</a></li> 
+				<li><a href="capitulo.php?clave=<?php echo $_SESSION['clave'];?>"><span class="fa fa-book icon-menu"></span>Curso</a></li>
 				<li>  <a href="miembros.php"><span class="fa fa-users icon-menu"></span>Integrantes</a></li>
-				<li>  <a href="chatt.php"><span class="fa fa-users icon-menu"></span>Chat</a></li>
+				<li>  <a href="foro.php"><span class="fa fa-commenting icon-menu"></span>Foro</a></li> 
+				<li>  <a href="messages.php"><span class="fa fa-comments icon-menu"></span>Chat</a></li>
+				<li>  <a href="calendario.php"><span class="fa fa-calendar icon-menu"></span>Agenda</a></li> 
 				<li>  <a href="calificaciones.php"><span class="fa fa-list icon-menu"></span>Calificaciones</a></li> 
-				<li>  <a href="inicio.php?cerrar=1"><span class="fas fa-sign-out icon-menu"></span>Cerrar sesión</a></li>
+				<li>  <a href="inicio.php?cerrar=1"><span class='fas icon-menu' >&#xf2f5</span>Cerrar sesión</a></li>
 <!--
 				<li>  <a href="email.php"><span class="fa fa-envelope icon-menu"></span>Email</a></li> 
 				<li>  <a href="examen.php"><span class="fa fa-users icon-menu"></span>Examen y tarea</a></li>

@@ -14,35 +14,30 @@ session_destroy();
 if(isset($_REQUEST['idtema'])){
     $_SESSION['tema']=$_REQUEST['idtema'];
 }
-$qtemas=mysqli_query($link,"SELECT * FROM temas WHERE idtema='".$_SESSION['tema']."' ORDER BY fecha ASC");
-$ntemas=mysqli_num_rows($qtemas);
-$arraytemas=mysqli_fetch_assoc($qtemas);
 
 ?>
 <?php include('first.php'); ?><?php include('margin.php'); ?>
 
 
-<script src="jquery-3.0.0.min.js"></script>
+<link rel="stylesheet" href="./richtext.min.css">
+<script type="text/javascript" src="./jquery.richtext.js"></script>
 
-<h1 style=' display:flex;    width:90%; margin:;
-padding:5px; flex-wrap:wrap;
-    align-items: center;  justify-content: center;margin:auto'>Tema actual</h1>
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({ "fast-preview": {disabled:true},TeX: {equationNumbers: { autoNumber:"AMS"}}, tex2jax: {preview: "none", inlineMath: [['$','$'], ['\\(','\\)']]}, "HTML-CSS": { availableFonts: ["Tex"] }});
+MathJax.Hub.processSectionDelay = 0;
+</script>
 
-<article class='plan' style=' display:flex;width:90%;padding:5px; flex-wrap:wrap;align-items: center;  justify-content: center'>
-<?php echo $arraytemas['tema']; ?>
 
-<?php
-    if($arraytemas['file']=='Editar link'){
-      ECHO "<iframe src='https://www.youtube.com/embed/zoGqt6ObPC8' style='align:center;display:block;width:95%;margin:auto; height:300px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>wwwww</iframe>";
-      }else{
-        ECHO "<iframe src='".$arraytemas['file']."' style='align:center;display:block;width:100%;height:300px;border-radius:3px;' frameborder='0' allowfullscreen='allowfullscreen'>ww</iframe>";
-    }
-    ?>
-    <h2 style=' display:flex;width:90%;padding:5px; flex-wrap:wrap;align-items: center;justify-content: center;margin:auto'>Ingrese su comentario acerca de este tema</h2>
+      <textarea  class='www' style='width:90%;display:block;;margin:auto;' name="comentario" id="comentar" cols="30" rows="3" placeholder="Escriba su mensaje"></textarea><br>
 
-      <textarea name="comentario" id="comentar" cols="30" rows="3" placeholder="Nuevo comentario"></textarea><br>
-
-    </article>
+<script>
+$(document).ready(function() {
+    $('.www').richText();
+});
+</script>
 
 
 
@@ -50,19 +45,19 @@ padding:5px; flex-wrap:wrap;
 <script>
 
 $(document).ready(function(){
-setInterval(obtener_comentarforo, 10000);
-function obtener_comentarforo(){
+setInterval(obtener_chat, 10000);
+function obtener_chat(){
 $.ajax({
-url:"comentarforoajax.php",
+url:"messages_ajax.php",
 method:"POST", 
 success:function(data){
-$("#comentarforo").html(data)
+$("#comentarchat").html(data)
 }
 })
 }
 
 
-obtener_comentarforo();
+obtener_chat();
 
 //INSERTAR foro
 $(document).on("blur", "#comentar", function(){
@@ -75,13 +70,13 @@ $(this).val('');
 //   alert(user);
 //   alert(x1);
 $.ajax({
-url:"comentarforoajax.php",
+url:"messages_ajax.php",
 method:"post",
 data:{clavew:clave,user:user,x1:x1},
 success:function(data){ 
-// var audio = new Audio('beep.mp3');
+//  var audio = new Audio('beep.mp3');
 //                audio.play();
-obtener_comentarforo();
+obtener_chat();
 //   alert(data);
 }
 })
@@ -93,7 +88,7 @@ obtener_comentarforo();
 //ACTUALIZAR capitulo
 function actualizar_datos(id,texto,columna){
 $.ajax({
-url:"datos_capitulos.php",
+url:"messages_ajax.php",
 method:"post",
 data:{id: id, texto: texto, columna: columna},
 success:function(data){
@@ -143,11 +138,11 @@ if(confirm("Esta seguro de eliminar esta fila")){
 var idw=$(this).data("id");
 //alert(idw);
 $.ajax({ 
-url:"comentarforoajax.php",
+url:"messages_ajax.php",
 method:"post",
 data:{id:idw},
 success:function(data){
-obtener_comentarforo();
+obtener_chat();
 //alert(data);
 }
 })
@@ -160,7 +155,7 @@ obtener_comentarforo();
 </script>
 
 
-<div id ="comentarforo"></div>
+<div id ="comentarchat"></div>
 
 
 

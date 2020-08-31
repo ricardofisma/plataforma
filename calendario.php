@@ -257,7 +257,7 @@ $events=mysqli_fetch_assoc($event);
 
 
 
-<h1>Calendario-agenda</h1>
+<h1 style='text-align:center'>Calendario-agenda</h1>
 
 
 <article>

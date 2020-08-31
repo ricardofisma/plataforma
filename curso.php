@@ -16,7 +16,6 @@ if(isset($_REQUEST['cerrar'])){
 
 
 include('first.php');
-include('margin.php');
 
 
 $con=mysqli_query($link,"SELECT * FROM clase WHERE clave='".$_GET['clave']."'");
